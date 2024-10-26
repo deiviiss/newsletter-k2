@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Prisma schema for the newsletter platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin // Role for the teacher/administrator
+  user // Role for the parents/users
+}
+
+model Newsletter {
+  id        String   @id @default(uuid())
+  title     String   @unique // Newsletter title, e.g., "October 2024 Newsletter"
+  month     DateTime // Date associated with the newsletter (month of publication)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vocabulary    Vocabulary[]
+  topics        Topic[]
+  videos        Video[]
+  socialSkill   SocialSkill? @relation(fields: [socialSkillId], references: [id]) // Relación 1:1 con SocialSkill // Optional social skill activity for some newsletters (e.g., "Follow Directions")
+  socialSkillId String?      @unique // Foreign key para SocialSkill
+  note          Note[] // Relación 1:N con Note
+
+  @@map("newsletters")
+}
+
+model SocialSkill {
+  id         String      @id @default(uuid())
+  skill      String // Skill name, e.g., "Follow Directions"
+  activity   String // Activity description
+  newsletter Newsletter? // Relation 1:1 with Newsletter (optional)
+
+  @@map("social_skills")
+}
+
+model Note {
+  id           String     @id @default(uuid())
+  content      String // Content of the note
+  newsletterId String // Foreign key to associate with Newsletter
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id]) // Relation 1:N with Newsletter
+
+  @@map("notes")
+}
+
+model Vocabulary {
+  id            String     @id @default(uuid())
+  word          String // English word
+  pronunciation String // Spanish pronunciation
+  newsletterId  String
+  newsletter    Newsletter @relation(fields: [newsletterId], references: [id])
+
+  @@map("vocabularies")
+}
+
+model Topic {
+  id           String     @id @default(uuid())
+  name         String // Topic name (e.g., "Colors", "Shapes")
+  newsletterId String
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
+
+  @@map("topics")
+}
+
+model Video {
+  id           String     @id @default(uuid())
+  title        String // Video title
+  by           String // Video creator
+  url          String // Video URL
+  newsletterId String
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
+
+  @@map("videos")
+}
+
+model User {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  name     String
+  password String? // Password for authentication
+  role     Role    @default(admin) // Role of the user (default: admin)
+
+  @@map("users")
+}
