@@ -40,7 +40,7 @@ export const initialData: SeedData = {
       ],
       topics: [
         { name: 'Directions' },
-        { name: 'The vowels' },
+        { name: 'The Vowels' },
         { name: 'Colors' },
         { name: 'Shapes' },
         { name: 'Numbers 0-10' }
@@ -103,8 +103,8 @@ export const initialData: SeedData = {
 
   users: [
     {
-      id: '1',
-      email: 'maestraKelly@huertodelailusion.com',
+      id: randomUUID(),
+      email: 'missKelly@huertodelailusion.com',
       name: 'Miss Kelly',
       password: bcrypt.hashSync('userseed'),
       role: 'admin'
