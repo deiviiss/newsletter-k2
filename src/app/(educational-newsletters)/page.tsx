@@ -3,6 +3,8 @@ import { getNewsletters } from '@/actions/newsletter/get-newsletters'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
+export const revalidate = 60 * 60 * 24 * 7 // 1 week
+
 export default async function LandingPage() {
   const { newsletters } = await getNewsletters({ page: 1, take: 2 })
 
