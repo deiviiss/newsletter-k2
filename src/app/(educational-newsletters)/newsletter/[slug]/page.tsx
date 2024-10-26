@@ -1,6 +1,7 @@
 import { type Metadata, type ResolvingMetadata } from 'next'
 import Link from 'next/link'
-import { getNewsletterByTitle } from '@/actions/newsletter/get-newsletter-by-title'
+import { getNewsletterByTitle, getAllNewslettersOrderedByMonth } from '@/actions/newsletter'
+import { Button } from '@/components/ui/button'
 import { monthColors } from '@/utils/monthColors'
 
 export const revalidate = 60 * 60 * 24 * 7 // 1 week
@@ -11,6 +12,7 @@ interface Props {
   }
 }
 
+// This function is called at build time, metadata is used to generate the <head> of the page
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const slug = params.slug
   const decodedTitle = decodeURIComponent(slug)
@@ -52,6 +54,11 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
 
   const { ok, newsletter } = await getNewsletterByTitle(decodedTitle)
 
+  const allNewsletters = await getAllNewslettersOrderedByMonth()
+  const currentNewsletterIndex = allNewsletters.findIndex(n => decodeURIComponent(n.title) === decodedTitle)
+  const previousNewsletter = currentNewsletterIndex > 0 ? allNewsletters[currentNewsletterIndex - 1] : null
+  const nextNewsletter = currentNewsletterIndex < allNewsletters.length - 1 ? allNewsletters[currentNewsletterIndex + 1] : null
+
   if (!ok || !newsletter) {
     return <div>No se encontró el newsletter</div>
   }
@@ -60,11 +67,42 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
   const headerColor = monthColors[monthNumber] || 'bg-blue-300'
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 py-11 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">{newsletter.title}</h1>
+        <div className='flex items-center justify-center mb-11 relative'>
+          {previousNewsletter && (
+            <Button
+              asChild
+              className="mr-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-black absolute left-0 -bottom-10"
+              aria-label="Previous Newsletter"
+            >
+              <Link href={`/newsletter/${previousNewsletter.title}`}>
+                {/* Icono de Flecha Izquierda */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </Link>
+            </Button>
+          )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-12 md:py-8">
+          <h1 className="text-4xl font-bold text-gray-900 text-center">{newsletter.title}</h1>
+
+          {nextNewsletter && (
+            <Button asChild
+              className="ml-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-black absolute right-0 -bottom-10"
+              aria-label="Next Newsletter"
+            >
+              <Link href={`/newsletter/${nextNewsletter.title}`}>
+                {/* Icono de Flecha Derecha */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </Button>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-12">
           {/* Vocabulary */}
           <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
             <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>Vocabulary</h2>
@@ -141,6 +179,6 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
