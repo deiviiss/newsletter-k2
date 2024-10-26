@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import { randomUUID } from 'crypto'
 import { type INewsletter, type IUser } from '../interfaces'
 
 interface SeedData {
@@ -9,16 +10,16 @@ interface SeedData {
 export const initialData: SeedData = {
   newsletters: [
     {
-      id: '1',
+      id: randomUUID(),
       title: 'October 2024 Newsletter',
       month: '2024-10-01T00:00:00.000Z',
       socialSkill: {
-        skill: 'Follow directions',
-        activity: 'We recommend doing activities or games that involve following specific steps at home.'
+        skill: 'En esta nueva sección cada mes les compartiremos la habilidad social que trabajaremos y alguna actividad para reforzar en casita',
+        activity: 'Este mes reforzaremos Seguir indicaciones. Recomendamos en casa hacer actividades o juegos que impliquen seguir pasos específicos.'
       },
       notes: [
-        { content: 'This month, we are sharing the vocabulary that we will be working on in class with the children, along with general topics and links to songs that you can practice at home.' },
-        { content: 'The vocabulary is sent as it is written in black and how it is pronounced in gray.' }
+        { content: 'Este mes de nuevo les compartimos el vocabulario que estaremos trabajando en clase con los niños, los temas generales y links de canciones con las que podrán practicar en casa.' },
+        { content: 'El vocabulario se envía como se escribe en negro y como se pronuncia en gris.' }
       ],
       vocabulary: [
         { word: 'Red', pronunciation: 'Red' },
@@ -38,9 +39,10 @@ export const initialData: SeedData = {
         { word: 'Left', pronunciation: 'Left' }
       ],
       topics: [
+        { name: 'Directions' },
+        { name: 'The vowels' },
         { name: 'Colors' },
         { name: 'Shapes' },
-        { name: 'Directions' },
         { name: 'Numbers 0-10' }
       ],
       videos: [
@@ -54,12 +56,14 @@ export const initialData: SeedData = {
       ]
     },
     {
-      id: '2',
+      id: randomUUID(),
       title: 'September 2024 Newsletter',
       month: '2024-09-01T00:00:00.000Z',
       notes: [
-        { content: 'This month, we are focusing on school supplies and classroom-related vocabulary.' },
-        { content: 'Help your child by reviewing the vocabulary and practicing with the pronunciation provided.' }
+        { content: 'Bienvenidos todos a este nuevo ciclo escolar, en esta sección daremos avisos generales para los padres, madres y tutores' },
+        { content: 'Las Newsletters, como esta misma, serán enviadas y pegadas en los salones a principio de mes donde les brindaremos el vocabulario que estaremos trabajando en clase con los niños, los temas generales y links de canciones con las que podrán practicar en casa' },
+        { content: 'El vocabulario se envía como se escribe en negro y como se pronuncia en gris.' },
+        { content: 'Les recordamos que es importante enviar el marcador y las play-doh’s de sus niños ya que es material que se emplea para trabajar en clase.' }
       ],
       vocabulary: [
         { word: 'Backpack', pronunciation: 'Bakpak' },
@@ -75,7 +79,8 @@ export const initialData: SeedData = {
         { word: 'Pencil case', pronunciation: 'Pensol keis' },
         { word: 'Scissors', pronunciation: 'Sizors' },
         { word: 'Table', pronunciation: 'Teibol' },
-        { word: 'Water bottle', pronunciation: 'Uader bodl' },
+        { word: 'Water', pronunciation: 'Uader' },
+        { word: 'Bottle', pronunciation: 'Bodl' },
         { word: 'Whiteboard', pronunciation: 'Uaitbord' }
       ],
       topics: [
