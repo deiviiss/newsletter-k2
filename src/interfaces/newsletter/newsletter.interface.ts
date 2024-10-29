@@ -12,9 +12,9 @@ export interface INote {
 export interface INewsletter {
   id: string
   title: string
-  month: string
-  socialSkill?: ISocialSkill
-  vocabulary: IVocabulary[]
+  month: Date
+  socialSkill: ISocialSkill | null
+  vocabularies: IVocabulary[]
   topics: ITopic[]
   videos: IVideo[]
   notes: INote[]

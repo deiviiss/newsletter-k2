@@ -16,10 +16,6 @@ const userSchema = z.object({
   email: z
     .string()
     .email({ message: 'El correo electrónico no es válido' }),
-  phoneNumber: z
-    .string()
-    .min(14, { message: 'El número de teléfono debe ser de 14 caracteres incluyendo el código del país' })
-    .max(14, { message: 'El número de teléfono debe ser de 14 caracteres incluyendo el código del país' }),
   password: z
     .string()
     .refine(value => value === '' || (value.length >= 6 && value.length <= 10), {
@@ -32,7 +28,6 @@ interface IData {
   email: string
   name: string
   password?: string | null
-  phoneNumber: string
 }
 
 export const updateUser = async (data: IData) => {
@@ -42,21 +37,19 @@ export const updateUser = async (data: IData) => {
     if (!userParsed.success) {
       return {
         ok: false,
-        message: 'Error al actualizar usuario'
+        message: 'Error updating user'
       }
     }
 
-    const { name, email, password, id, phoneNumber } = userParsed.data
+    const { name, email, password, id } = userParsed.data
 
     const dataUserUpdated: {
       name: string
       email: string
-      phoneNumber: string
       password?: string
     } = {
       name,
-      email,
-      phoneNumber
+      email
     }
 
     if (password.length > 0) {
@@ -72,7 +65,7 @@ export const updateUser = async (data: IData) => {
     if (!userUpdated) {
       return {
         ok: false,
-        message: 'Usuario no actulizado'
+        message: 'User not updated'
       }
     }
 
@@ -83,12 +76,12 @@ export const updateUser = async (data: IData) => {
 
     return {
       ok: true,
-      message: 'Actualizado correctamente'
+      message: 'Updated successfully'
     }
   } catch (error) {
     return {
       ok: false,
-      message: 'Error al actulizar usuario, contacta a soporte'
+      message: 'Error updating user, contact support'
     }
   }
 }

@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 import { updateUser } from '@/actions'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { type IUser } from '@/interfaces'
@@ -24,10 +25,6 @@ const formUserSchema = z.object({
   email: z
     .string()
     .email({ message: 'El correo electrónico no es válido' }),
-  phoneNumber: z
-    .string()
-    .min(14, { message: 'El número de teléfono debe ser de 14 caracteres incluyendo el código del país' })
-    .max(14, { message: 'El número de teléfono debe ser de 14 caracteres incluyendo el código del país' }),
   password: z
     .string()
     .refine(value => value === '' || (value.length >= 6 && value.length <= 10), {
@@ -79,84 +76,97 @@ export const EditForm = (user: IUser) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
 
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nombre completo</FormLabel>
-                <FormControl>
-                  <Input
-                    className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
-                    type='text'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <Card>
+            <CardHeader>
+              <CardTitle>{user ? 'Edit user' : 'Create'}</CardTitle>
+              <CardDescription>
+                Edit an existing user
+              </CardDescription>
+            </CardHeader>
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Correo electrónico</FormLabel>
-                <FormControl>
-                  <Input
-                    className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
-                    type='email'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <CardContent>
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Contraseña</FormLabel>
-                <FormControl>
-                  <Input
-                    className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
-                    type='password'
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  Si captura la contraseña esta será restablecida
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full name</FormLabel>
+                    <FormControl>
+                      <Input
+                        className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <div className='flex gap-2 w-full text-center justify-end mb-10'>
-            <Button
-              size='sm'
-              type="submit"
-              disabled={isSubmitting}
-            >
-              Guardar
-            </Button>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
+                        type='email'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button
-              asChild
-              size="sm"
-              variant='destructive'
-            >
-              <Link
-                href="/profile"
-              >
-                Cancelar
-              </Link>
-            </Button>
-          </div>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
+                        type='password'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      If you capture the password it will be reset
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className='flex gap-2 w-full text-center justify-end my-10'>
+                <Button
+                  size='sm'
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Save
+                </Button>
+
+                <Button
+                  asChild
+                  size="sm"
+                  variant='destructive'
+                >
+                  <Link
+                    href="/profile"
+                  >
+                    Cancel
+                  </Link>
+                </Button>
+              </div>
+
+            </CardContent>
+          </Card>
 
         </form>
       </Form>

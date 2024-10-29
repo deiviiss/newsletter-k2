@@ -1,7 +1,9 @@
+import { redirect } from 'next/navigation'
 import { RegisterForm } from './ui/RegisterForm'
 import { titleFont } from '@/config/fonts'
 
 export default function NewAccountPage() {
+  redirect('/auth/login')
   return (
     <div className="flex flex-col min-h-screen pt-32">
 

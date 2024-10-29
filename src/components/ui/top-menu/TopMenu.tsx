@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { IoMenu } from 'react-icons/io5'
 import { Button } from '../button'
@@ -10,6 +11,10 @@ import { useUiStore } from '@/store'
 
 export const TopMenu = () => {
   const openMenu = useUiStore((state) => state.openSideMenu)
+
+  const { data: session } = useSession()
+  const isAuthenticated = !!session?.user
+
   const [bgColor, setBgColor] = useState('bg-none')
   const fixedScrollThreshold = 0.5 // 1% scroll threshold
 
@@ -42,13 +47,22 @@ export const TopMenu = () => {
             type="button"
             variant='ghost'
             onClick={openMenu}
-            className={`${titleFont.className} transition-all hover:bg-gray-900 hover:text-white md:hidden`}
+            className={`${titleFont.className} transition-all hover:bg-gray-900 hover:text-white md:hidden px-2`}
           >
             <IoMenu size={30} />
           </Button>
           <ul className="hidden space-x-4 md:flex">
             <li><Link href="/newsletters" className="hover:text-blue-400 transition-colors">Newsletters</Link></li>
             <li><Link href="/breakfasts" className="hover:text-blue-400 transition-colors">Breakfasts</Link></li>
+            {
+              !isAuthenticated
+                ? (
+                  <li><Link href="/auth/login" className="hover:text-blue-400 transition-colors">Login</Link></li>)
+                : (
+                  <>
+                    <li><Link href="/profile" className="hover:text-blue-400 transition-colors">Profile</Link></li>
+                  </>)
+            }
           </ul>
         </nav>
       </header>

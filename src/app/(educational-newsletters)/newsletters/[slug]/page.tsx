@@ -76,8 +76,8 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
               className="mr-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-black absolute left-0 -bottom-10"
               aria-label="Previous Newsletter"
             >
-              <Link href={`/newsletter/${previousNewsletter.title}`}>
-                {/* Icono de Flecha Izquierda */}
+              <Link href={`/newsletters/${previousNewsletter.title}`}>
+                {/* left arrow icon */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
@@ -92,8 +92,8 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
               className="ml-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-black absolute right-0 -bottom-10"
               aria-label="Next Newsletter"
             >
-              <Link href={`/newsletter/${nextNewsletter.title}`}>
-                {/* Icono de Flecha Derecha */}
+              <Link href={`/newsletters/${nextNewsletter.title}`}>
+                {/* right arrow icon */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -107,8 +107,8 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
           <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
             <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>Vocabulary</h2>
             <div className="p-4">
-              {newsletter.vocabulary.map((item, index) => (
-                <div key={index} className="flex justify-between py-2 border-b last:border-b-0">
+              {newsletter.vocabularies.map((item, index) => (
+                <div key={index} className="flex justify-between px-4 py-2 border-b last:border-b-0">
                   <span className="font-medium">{item.word}</span>
                   <span className="text-gray-500">{item.pronunciation}</span>
                 </div>
@@ -122,7 +122,7 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
             <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-12 pt-3 relative">
               <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>What are we learning?</h2>
               <div className="p-4">
-                <p className="text-lg text-gray-700">{newsletter.topics.map(topic => (
+                <p className="text-lg text-gray-700 px-4">{newsletter.topics.map(topic => (
                   <span key={topic.name}>{topic.name}, </span>
                 ))}</p>
               </div>
@@ -133,7 +133,7 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
               <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>For the parents</h2>
               <div className="p-4 mb-12">
                 <ul className="list-disc pl-5 space-y-2">
-                  {newsletter.note.map((note, index) => (
+                  {newsletter.notes.map((note, index) => (
                     <li key={index} className="text-gray-700">{note.content}</li>
                   ))}
                 </ul>
@@ -147,8 +147,8 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
                   <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>Social Skills</h2>
 
                   <div className="p-4">
-                    <p className="font-medium mb-2">{newsletter.socialSkill.skill}</p>
-                    <p className="text-gray-700">{newsletter.socialSkill.activity}</p>
+                    <p className="font-medium mb-2 px-4">{newsletter.socialSkill.skill}</p>
+                    <p className="text-gray-700 px-4">{newsletter.socialSkill.activity}</p>
                   </div>
                 </div>
               )

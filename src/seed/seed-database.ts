@@ -33,8 +33,8 @@ const main = async () => {
               }
             }
           : undefined,
-        vocabulary: {
-          create: newsletter.vocabulary.map(vocab => ({
+        vocabularies: {
+          create: newsletter.vocabularies.map(vocab => ({
             word: vocab.word,
             pronunciation: vocab.pronunciation
           }))
@@ -44,7 +44,7 @@ const main = async () => {
             name: topic.name
           }))
         },
-        note: {
+        notes: {
           create: newsletter.notes.map(note => ({
             content: note.content
           }))

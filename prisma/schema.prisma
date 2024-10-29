@@ -26,12 +26,13 @@ model Newsletter {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  vocabulary    Vocabulary[]
-  topics        Topic[]
-  videos        Video[]
-  socialSkill   SocialSkill? @relation(fields: [socialSkillId], references: [id]) // Relación 1:1 con SocialSkill // Optional social skill activity for some newsletters (e.g., "Follow Directions")
-  socialSkillId String?      @unique // Foreign key para SocialSkill
-  note          Note[] // Relación 1:N con Note
+  vocabularies Vocabulary[] // Relation 1:N with Vocabulary
+  topics       Topic[] // Relation 1:N with Topic
+  videos       Video[] // Relation 1:N with Video
+  notes        Note[] // Relation 1:N with Note
+
+  socialSkillId String?      @unique // Foreign key to associate with SocialSkill
+  socialSkill   SocialSkill? @relation(fields: [socialSkillId], references: [id], onDelete: Cascade) // Relation 1:1 with SocialSkill (optional)
 
   @@map("newsletters")
 }
@@ -49,7 +50,7 @@ model Note {
   id           String     @id @default(uuid())
   content      String // Content of the note
   newsletterId String // Foreign key to associate with Newsletter
-  newsletter   Newsletter @relation(fields: [newsletterId], references: [id]) // Relation 1:N with Newsletter
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id], onDelete: Cascade) // Relation 1:N with Newsletter
 
   @@map("notes")
 }
@@ -59,7 +60,7 @@ model Vocabulary {
   word          String // English word
   pronunciation String // Spanish pronunciation
   newsletterId  String
-  newsletter    Newsletter @relation(fields: [newsletterId], references: [id])
+  newsletter    Newsletter @relation(fields: [newsletterId], references: [id], onDelete: Cascade)
 
   @@map("vocabularies")
 }
@@ -68,7 +69,7 @@ model Topic {
   id           String     @id @default(uuid())
   name         String // Topic name (e.g., "Colors", "Shapes")
   newsletterId String
-  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id], onDelete: Cascade)
 
   @@map("topics")
 }
@@ -79,7 +80,7 @@ model Video {
   by           String // Video creator
   url          String // Video URL
   newsletterId String
-  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id], onDelete: Cascade)
 
   @@map("videos")
 }

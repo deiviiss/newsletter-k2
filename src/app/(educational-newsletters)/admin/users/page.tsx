@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getPaginatedUsers } from '@/actions'
-import { CardUser, Pagination, Title, UsersTable } from '@/components'
+import { CardUser, Pagination, UsersTable } from '@/components'
 
 export const revalidate = 0
 
@@ -19,25 +19,27 @@ export default async function UsersPage({ searchParams }: Props) {
   }
 
   return (
-    <>
-      <Title title="Mantenimiento de usuarios" subtitle='Lista de todos los usuarios' />
+    <div className='min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8'>
+      <div className='max-w-6xl mx-auto'>
+        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">Users Maintenance</h1>
 
-      <div className='sm:hidden w-full flex flex-col gap-3 mb-10'>
-        {
-          users.map(user => (
-            <CardUser
-              key={user.id}
-              user={user}
-            />
-          ))
-        }
+        <div className='sm:hidden w-full flex flex-col gap-3 mb-10'>
+          {
+            users.map(user => (
+              <CardUser
+                key={user.id}
+                user={user}
+              />
+            ))
+          }
+        </div>
+
+        <div className="hidden sm:block mb-10 overflow-auto">
+          <UsersTable users={users} />
+
+        </div>
+        <Pagination totalPages={totalPages || 1} />
       </div>
-
-      <div className="hidden sm:block mb-10 overflow-auto">
-        <UsersTable users={users} />
-
-      </div>
-      <Pagination totalPages={totalPages || 1} />
-    </>
+    </div>
   )
 }
