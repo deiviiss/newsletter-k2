@@ -21,7 +21,7 @@ export const CardUser = ({ user }: Props) => {
       <CardHeader className="flex flex-row items-start bg-muted/50">
         <div className="grid gap-0.5">
           <Avatar className="bg-gray-200 text-gray-600 h-12 w-12 rounded-full">
-            <AvatarImage src="https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png" />
+            <AvatarImage src="/imgs/avatar.png" />
             <AvatarFallback>BC</AvatarFallback>
           </Avatar>
           <CardTitle className="group flex items-center gap-2 text-lg mt-1">{user.name}</CardTitle>

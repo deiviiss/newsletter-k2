@@ -211,20 +211,8 @@ export default function NewsletterDashboard() {
                   ? (
                     <p className='text-sm font-medium text-primary truncate px-4 py-4 sm:px-6'>No newsletter found</p>)
                   : (currentItems.map((newsletter) => (
-                    <li key={newsletter.id} className="flex items-center justify-between px-4 py-4 sm:px-6 hover:bg-gray-50">
-                      <Link href={`/newsletters/${newsletter.title}`} className="flex-grow">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium text-primary truncate">
-                            {newsletter.title}
-                          </p>
-                          <div className="ml-2 flex-shrink-0 flex">
-                            <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                              {newsletter.month.toLocaleDateString('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' })}
-                            </p>
-                          </div>
-                        </div>
-                      </Link>
-                      <div className="ml-4 flex-shrink-0">
+                    <li key={newsletter.id} className="w-full px-4 py-4 sm:px-6 hover:bg-gray-50 min-[470px]:flex min-[470px]:flex-row-reverse min-[470px]:justify-between min-[475px]:items-center">
+                      <div className="text-end pb-2 sm:pb-0">
                         <Button
                           asChild
                           variant="outline"
@@ -258,6 +246,18 @@ export default function NewsletterDashboard() {
                           </AlertDialogContent>
                         </AlertDialog>
                       </div>
+                      <Link href={`/newsletters/${newsletter.title}`}>
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm font-medium text-primary truncate">
+                            {newsletter.title}
+                          </p>
+                          <div className="ml-2 flex-shrink-0 flex">
+                            <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              {newsletter.month.toLocaleDateString('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' })}
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
                     </li>)))
                 }
               </ul>
