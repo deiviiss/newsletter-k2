@@ -1,3 +1,5 @@
 export { getAllNewslettersOrderedByMonth } from './get-all-newsletters-ordered-by-month'
 export { getNewsletterByTitle } from './get-newsletter-by-title'
 export { getNewsletters } from './get-newsletters'
+export { deleteNewsLetter } from './delete-news-letter'
+export { createUpdateNewsletter } from './create-update-newsletter'

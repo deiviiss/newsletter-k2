@@ -1,16 +1,16 @@
 import { type Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { IoPencil } from 'react-icons/io5'
+import { IoPencil, IoNewspaper, IoCafe, IoPeopleOutline } from 'react-icons/io5'
 import { getUserById, getUserSessionServer } from '@/actions'
-import { Title } from '@/components'
+import { ButtonLogout } from '@/components'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardFooter, CardTitle, CardDescription } from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: 'Perfil de usuario',
-  description: 'Contiene la información del usuario.'
+  title: 'User profile',
+  description: 'Contains user information.'
 }
 
 const ProfilePage = async () => {
@@ -26,38 +26,67 @@ const ProfilePage = async () => {
     redirect('/')
   }
 
-  const userName = user.name || 'Nombre de usuario'
+  const userName = user.name || 'User name'
   const userImage = '/imgs/avatar.png'
-  const userMail = user.email || 'Correo electrónico'
+  const userMail = user.email || 'email'
 
   return (
-    <Card className='mb-10 pb-10 max-w-[400px] mx-auto' >
-      <CardHeader className='text-center'>
-        <Title title='Perfil' subtitle='' />
-      </CardHeader>
+    <div className='w-full m-auto sm:w-[400px] py-4'>
+      <Card>
+        <CardHeader>
+          <CardTitle>Profile</CardTitle>
+          <CardDescription>
+            User information
+          </CardDescription>
+        </CardHeader>
 
-      <CardContent className='flex justify-center'>
-        <Avatar className="bg-gray-200 text-gray-600 h-28 w-28 rounded-full">
-          <AvatarImage src={userImage} />
-          <AvatarFallback>BC</AvatarFallback>
-        </Avatar>
-      </CardContent>
+        <CardContent className='flex justify-center'>
+          <Avatar className="bg-gray-200 text-gray-600 h-28 w-28 rounded-full">
+            <AvatarImage src={userImage} />
+            <AvatarFallback>NK-2</AvatarFallback>
+          </Avatar>
+        </CardContent>
 
-      <CardContent >
-        <div className=' flex justify-end'>
-          <Button asChild variant='outline' size='sm' className='gap-1'>
-            <Link href={`/profile/${user.id}/edit`} className='text-[10px]'>
-              <IoPencil />
-              <span className='hidden sm:flex'>Editar</span>
+        <CardContent >
+          <div className=' flex justify-end'>
+            <Button asChild variant='outline' size='sm' className='gap-1'>
+              <Link href={`/profile/${user.id}/edit`} className='text-[10px]'>
+                <IoPencil />
+                <span className='hidden sm:flex'>Edit</span>
+              </Link>
+            </Button>
+          </div>
+
+          <p><span className='font-semibold'>Name:</span> {userName}</p>
+          <p><span className='font-semibold'>Email:</span> {userMail}</p>
+        </CardContent>
+
+        <CardFooter className='flex flex-col gap-4'>
+          <Button asChild variant='outline' size='sm' className='w-full gap-2'>
+            <Link href="/admin/newsletters">
+              <IoNewspaper />
+              <span>Manage Newsletter</span>
             </Link>
           </Button>
-        </div>
+          <Button asChild variant='outline' size='sm' className='w-full gap-2'>
+            <Link href="/admin/breakfasts">
+              <IoCafe />
+              <span>Manage Breakfast</span>
+            </Link>
+          </Button>
+          <Button asChild variant='outline' size='sm' className='w-full gap-2'>
+            <Link href="/admin/users">
+              <IoPeopleOutline />
+              <span>Manage Users</span>
+            </Link>
+          </Button>
 
-        <p><span className='font-semibold'>Nombre:</span> {userName}</p>
-        <p><span className='font-semibold'>Correo:</span> {userMail}</p>
-      </CardContent>
+          <ButtonLogout />
 
-    </Card>
+        </CardFooter>
+
+      </Card>
+    </div>
   )
 }
 

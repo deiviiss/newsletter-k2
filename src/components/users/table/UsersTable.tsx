@@ -1,6 +1,8 @@
 'use client'
 
-import { MenuOptionsUser } from './MenuOptions'
+import Link from 'next/link'
+import { BsPencil } from 'react-icons/bs'
+import { Button } from '@/components/ui/button'
 import { type IUser } from '@/interfaces'
 
 interface Props {
@@ -43,7 +45,15 @@ export const UsersTable = ({ users }: Props) => {
                 {user.role}
               </td>
               <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                <MenuOptionsUser user={user} />
+                {/* <MenuOptionsUser user={user} /> */}
+                <Button asChild size="sm" variant="outline" className="h-8 gap-1">
+                  <Link
+                    href={`/admin/users/${user.id}/edit`}
+                    className="hover:underline flex items-center gap-2">
+                    <BsPencil className="h-3.5 w-3.5" />
+                    <span className='hidden min-[500px]:block'>Editar</span>
+                  </Link>
+                </Button>
               </td>
             </tr>
           ))

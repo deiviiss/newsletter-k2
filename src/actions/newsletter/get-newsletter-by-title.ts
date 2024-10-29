@@ -9,9 +9,9 @@ export const getNewsletterByTitle = async (title: string) => {
     },
     include: {
       topics: true,
-      vocabulary: true,
+      vocabularies: true,
       videos: true,
-      note: true,
+      notes: true,
       socialSkill: true
     }
   })
@@ -19,7 +19,7 @@ export const getNewsletterByTitle = async (title: string) => {
   if (!newsletter) {
     return {
       ok: false,
-      message: 'No se encontraron newsletters'
+      message: 'Newsletters not found'
     }
   }
 

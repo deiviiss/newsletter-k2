@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getUserById } from '@/actions'
-import { EditForm } from '@/components'
+import { EditForm, Title } from '@/components'
 
 interface Props {
   params: {
@@ -17,7 +17,9 @@ export default async function EditUserPage({ params }: Props) {
   }
 
   return (
-    <div className='w-full m-auto sm:max-w-[400px] py-4'>
+    <div className='w-full m-auto sm:w-[350px]'>
+      <Title title="Editar usuario" subtitle='Edición de un usuario existente' />
+
       <EditForm {...user} />
     </div>
   )

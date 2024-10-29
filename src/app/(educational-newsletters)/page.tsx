@@ -37,7 +37,7 @@ export default async function LandingPage() {
                   ))}</p>
                 </CardContent>
                 <CardFooter>
-                  <Link href={`/newsletter/${newsletter.title}`} passHref>
+                  <Link href={`/newsletters/${newsletter.title}`} passHref>
                     <Button>View More</Button>
                   </Link>
                 </CardFooter>

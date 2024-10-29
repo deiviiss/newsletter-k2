@@ -12,7 +12,7 @@ export const initialData: SeedData = {
     {
       id: randomUUID(),
       title: 'October 2024 Newsletter',
-      month: '2024-10-01T00:00:00.000Z',
+      month: new Date('2024-10-01T00:00:00.000Z'),
       socialSkill: {
         skill: 'En esta nueva sección cada mes les compartiremos la habilidad social que trabajaremos y alguna actividad para reforzar en casita',
         activity: 'Este mes reforzaremos Seguir indicaciones. Recomendamos en casa hacer actividades o juegos que impliquen seguir pasos específicos.'
@@ -21,7 +21,7 @@ export const initialData: SeedData = {
         { content: 'Este mes de nuevo les compartimos el vocabulario que estaremos trabajando en clase con los niños, los temas generales y links de canciones con las que podrán practicar en casa.' },
         { content: 'El vocabulario se envía como se escribe en negro y como se pronuncia en gris.' }
       ],
-      vocabulary: [
+      vocabularies: [
         { word: 'Red', pronunciation: 'Red' },
         { word: 'Blue', pronunciation: 'Blu' },
         { word: 'Yellow', pronunciation: 'Ielou' },
@@ -58,14 +58,15 @@ export const initialData: SeedData = {
     {
       id: randomUUID(),
       title: 'September 2024 Newsletter',
-      month: '2024-09-01T00:00:00.000Z',
+      month: new Date('2024-09-01T00:00:00.000Z'),
+      socialSkill: null,
       notes: [
         { content: 'Bienvenidos todos a este nuevo ciclo escolar, en esta sección daremos avisos generales para los padres, madres y tutores' },
         { content: 'Las Newsletters, como esta misma, serán enviadas y pegadas en los salones a principio de mes donde les brindaremos el vocabulario que estaremos trabajando en clase con los niños, los temas generales y links de canciones con las que podrán practicar en casa' },
         { content: 'El vocabulario se envía como se escribe en negro y como se pronuncia en gris.' },
         { content: 'Les recordamos que es importante enviar el marcador y las play-doh’s de sus niños ya que es material que se emplea para trabajar en clase.' }
       ],
-      vocabulary: [
+      vocabularies: [
         { word: 'Backpack', pronunciation: 'Bakpak' },
         { word: 'Book', pronunciation: 'Buk' },
         { word: 'Brush', pronunciation: 'Brosh' },
@@ -104,8 +105,8 @@ export const initialData: SeedData = {
   users: [
     {
       id: randomUUID(),
-      email: 'missKelly@huertodelailusion.com',
-      name: 'Miss Kelly',
+      email: 'kelly@educationalnewsletter.com',
+      name: 'Kelly',
       password: bcrypt.hashSync('userseed'),
       role: 'admin'
     }

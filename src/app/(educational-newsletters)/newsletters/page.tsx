@@ -25,35 +25,36 @@ export default function NewsletterListPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const { newsletters } = await getNewsletters({})
-
-        if (!newsletters) {
-          setNewsletters([])
-          setFilteredNewsletters([])
-          setError('No se encontraron newsletters.')
-          return
-        }
-
-        const transformedNewsletters: Newsletter[] = newsletters.map(newsletter => ({
-          id: newsletter.id,
-          title: newsletter.title,
-          month: newsletter.month
-        }))
-
-        setNewsletters(transformedNewsletters)
-        setFilteredNewsletters(transformedNewsletters)
-      } catch (error) {
-        setError('Ocurrió un error al cargar los boletines. Por favor, intenta nuevamente más tarde.')
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
+    fetchNewsletters()
   }, [])
+
+  const fetchNewsletters = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const { newsletters } = await getNewsletters({})
+
+      if (!newsletters) {
+        setNewsletters([])
+        setFilteredNewsletters([])
+        setError('No newsletters found.')
+        return
+      }
+
+      const transformedNewsletters: Newsletter[] = newsletters.map(newsletter => ({
+        id: newsletter.id,
+        title: newsletter.title,
+        month: newsletter.month
+      }))
+
+      setNewsletters(transformedNewsletters)
+      setFilteredNewsletters(transformedNewsletters)
+    } catch (error) {
+      setError('An error occurred while fetching newsletters. Please try again later.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value
@@ -69,11 +70,14 @@ export default function NewsletterListPage() {
   const filterNewsletters = (term: string, month: string) => {
     const filtered = newsletters.filter(newsletter => {
       const matchesTerm = term ? newsletter.title.toLowerCase().includes(term.toLowerCase()) : true
+
       const matchesMonth = month && month !== 'all'
         ? newsletter.month.getUTCMonth() + 1 === parseInt(month)
         : true // if no month is selected or 'all' is selected, return all newsletters
+
       return matchesTerm && matchesMonth
     })
+
     setFilteredNewsletters(filtered)
     setCurrentPage(1)
   }
@@ -155,7 +159,7 @@ export default function NewsletterListPage() {
                     <p className='text-sm font-medium text-primary truncate px-4 py-4 sm:px-6'>No newsletter found</p>)
                   : (currentItems.map((newsletter) => (
                     <li key={newsletter.id}>
-                      <Link href={`/newsletter/${newsletter.title}`} className="block hover:bg-gray-50">
+                      <Link href={`/newsletters/${newsletter.title}`} className="block hover:bg-gray-50">
                         <div className="px-4 py-4 sm:px-6">
                           <div className="flex items-center justify-between">
                             <p className="text-sm font-medium text-primary truncate">
