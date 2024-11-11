@@ -14,8 +14,8 @@ export default async function LandingPage() {
 
   return (
     <main className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <section className="text-center mb-12">
+      <div className="max-w-4xl mx-auto animate-fade-up">
+        <section className="text-center mb-12 animate-fade-up">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Our Kindergarten Educational Newsletters Platform</h1>
           <p className="text-xl text-gray-600">
             Stay updated with your child&apos;s learning journey. Access monthly newsletters, topics, vocabulary, and educational videos all in one place.
