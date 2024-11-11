@@ -68,7 +68,7 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
 
   return (
     <div className="min-h-screen bg-gray-100 py-11 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto  animate-fade-up">
         <div className='flex items-center justify-center mb-11 relative'>
           {previousNewsletter && (
             <Button
