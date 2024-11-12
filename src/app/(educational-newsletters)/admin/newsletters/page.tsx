@@ -16,6 +16,7 @@ interface Newsletter {
   id: string
   title: string
   month: Date
+  grade: string
 }
 
 export default function NewsletterDashboard() {
@@ -51,7 +52,8 @@ export default function NewsletterDashboard() {
       const transformedNewsletters: Newsletter[] = newsletters.map(newsletter => ({
         id: newsletter.id,
         title: newsletter.title,
-        month: new Date(newsletter.month)
+        month: new Date(newsletter.month),
+        grade: newsletter.grade
       }))
 
       setNewsletters(transformedNewsletters)
@@ -259,8 +261,9 @@ export default function NewsletterDashboard() {
                       <Link href={`/newsletters/${newsletter.title}`}>
                         <div className="flex items-center justify-between">
                           <p className="text-sm font-medium text-primary truncate">
-                            {newsletter.title}
+                            {newsletter.grade} - {newsletter.title}
                           </p>
+
                           <div className="ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                               {newsletter.month.toLocaleDateString('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' })}

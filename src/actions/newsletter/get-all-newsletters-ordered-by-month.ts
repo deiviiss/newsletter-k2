@@ -1,8 +1,16 @@
+import { type Grade } from '@/interfaces'
 import prisma from '@/lib/prisma'
 
-export const getAllNewslettersOrderedByMonth = async () => {
+interface IParams {
+  grade: Grade
+}
+
+export const getAllNewslettersOrderedByMonth = async ({ grade }: IParams) => {
   try {
     const newsletters = await prisma.newsletter.findMany({
+      where: {
+        grade
+      },
       orderBy: { month: 'asc' },
       select: {
         title: true

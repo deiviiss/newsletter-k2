@@ -143,3 +143,8 @@
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
+
+.fixed-menu {
+  width: 100vw;
+  overflow-x: hidden;
+}

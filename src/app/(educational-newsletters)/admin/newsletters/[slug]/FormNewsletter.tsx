@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { type INewsletter } from '@/interfaces'
 
@@ -39,7 +40,10 @@ const formSchema = z.object({
     title: z.string().min(1, 'Video title cannot be empty.'),
     by: z.string().min(1, 'Video creator cannot be empty.'),
     url: z.string().url('Must be a valid URL.')
-  }))
+  })),
+  grade: z.enum(['K2', 'K3'], {
+    message: 'Grade must be K2 or K3.'
+  })
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -59,7 +63,8 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
     notes: newsletter?.notes.length ? newsletter.notes : [{ content: '' }],
     vocabulary: newsletter?.vocabularies.length ? newsletter.vocabularies : [{ word: '', pronunciation: '' }],
     topics: newsletter?.topics.length ? newsletter.topics : [{ name: '' }],
-    videos: newsletter?.videos.length ? newsletter.videos : [{ title: '', by: '', url: '' }]
+    videos: newsletter?.videos.length ? newsletter.videos : [{ title: '', by: '', url: '' }],
+    grade: newsletter?.grade ?? 'K2'
   }
 
   const form = useForm<FormValues>({
@@ -100,6 +105,7 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
       formData.append('vocabulary', JSON.stringify(values.vocabulary))
       formData.append('topics', JSON.stringify(values.topics))
       formData.append('videos', JSON.stringify(values.videos))
+      formData.append('grade', values.grade)
 
       const { ok, message } = await createUpdateNewsletter(formData)
 
@@ -165,6 +171,28 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="grade"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Grade</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a grade" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="K2">K2</SelectItem>
+                      <SelectItem value="K3">K3</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
           </CardContent>
           {/* Skills */}
           <CardHeader>
@@ -345,13 +373,21 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
           </CardContent>
 
           <CardFooter>
-            <div className='w-full flex justify-end'>
+            <div className='flex gap-2 w-full text-center justify-end my-10'>
+              <Button
+                size="sm"
+                type='button'
+                onClick={() => { router.back() }}
+                variant='destructive'
+              >
+                Cancel
+              </Button>
               <Button
                 size={'sm'}
                 type="submit"
                 disabled={loading}
               >
-                {loading ? 'Saving...' : (newsletter ? 'Update Newsletter' : 'Create Newsletter')}
+                {loading ? 'Saving...' : (newsletter ? 'Update' : 'Create')}
               </Button>
             </div>
           </CardFooter>

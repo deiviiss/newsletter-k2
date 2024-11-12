@@ -53,7 +53,8 @@ export const initialData: SeedData = {
         { title: 'Five Little Pumpkins | Halloween Song', url: 'https://www.youtube.com/watch?v=GpO8_FMWcHA&pp=ygUvSGFsbG93ZWVuIFNvbmcgZm9yIEtpZHMgfCBIYWxsb3dlZW4gQ3JlYXR1cmVzIHw%3D', by: 'Super Simple Songs - Kids Songs' },
         { title: 'Halloween Song for Kids | 1 to 10 | The Singing Walrus', url: 'https://www.youtube.com/watch?v=trDl36m9pgA&pp=ygUMcHVtcGtpbiBzb25n', by: 'The Singing Walrus' },
         { title: 'Days Of The Week | Addams Family Parody', url: 'https://www.youtube.com/watch?v=8GKmCQOy88Y&pp=ygUiRGF5cyBvZiB0aGUgSGFsbG93ZWVuIEFkYW1zIGZhbWlseQ%3D%3D', by: 'Martin and Rose Music and Learning Videos' }
-      ]
+      ],
+      grade: 'K2'
     },
     {
       id: randomUUID(),
@@ -98,7 +99,8 @@ export const initialData: SeedData = {
         { title: 'Counting 1 to 10 | Baby Shark', url: 'https://www.youtube.com/watch?v=9SmaA6ErWKE', by: 'Baby Shark -Pinkfong Kids Songs & Stories' },
         { title: 'Counting 1-10 Song | The Singing Walrus', url: 'https://www.youtube.com/watch?v=Yt8GFgxlITs', by: 'The Singing Walrus' },
         { title: 'Days of The Week Song For Kids', url: 'https://www.youtube.com/watch?v=36n93jvjkDs', by: 'Dream English Kids' }
-      ]
+      ],
+      grade: 'K2'
     }
   ],
 

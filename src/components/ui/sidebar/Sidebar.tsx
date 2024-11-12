@@ -3,9 +3,11 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import { BsChevronDown } from 'react-icons/bs'
 import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoNewspaperOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5'
 import { MdOutlineFreeBreakfast } from 'react-icons/md'
 import { logout } from '@/actions'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { useUiStore } from '@/store'
 
 export const Sidebar = () => {
@@ -49,12 +51,25 @@ export const Sidebar = () => {
 
         {/* menú */}
         <div className='mt-16'>
-          <Link href='/newsletters'
-            onClick={() => { closeMenu() }}
-            className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
-            <IoNewspaperOutline size={30} />
-            <span className='ml-3 text-xl'>Newsletters</span>
-          </Link>
+          <Collapsible>
+            <CollapsibleTrigger className='flex items-center w-full mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+              <IoNewspaperOutline size={30} />
+              <span className='ml-3 text-xl'>Newsletters</span>
+              <BsChevronDown className="ml-auto h-4 w-4" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <Link href='/newsletters?grade=K2'
+                onClick={() => { closeMenu() }}
+                className='flex items-center mt-2 p-2 pl-12 hover:bg-black hover:text-white rounded-none transition-all'>
+                <span className='text-xl'>K2</span>
+              </Link>
+              <Link href='/newsletters?grade=K3'
+                onClick={() => { closeMenu() }}
+                className='flex items-center mt-2 p-2 pl-12 hover:bg-black hover:text-white rounded-none transition-all'>
+                <span className='text-xl'>K3</span>
+              </Link>
+            </CollapsibleContent>
+          </Collapsible>
 
           <Link href='/breakfasts'
             onClick={() => { closeMenu() }}

@@ -37,7 +37,8 @@ const newsletterSchema = z.object({
     title: z.string().min(1, 'Video title cannot be empty.'),
     by: z.string().min(1, 'Video creator cannot be empty.'),
     url: z.string().url('Must be a valid URL.')
-  }))
+  })),
+  grade: z.enum(['K2', 'K3'])
 })
 
 export const createUpdateNewsletter = async (formData: FormData) => {
@@ -68,7 +69,7 @@ export const createUpdateNewsletter = async (formData: FormData) => {
 
   const newsletterData = newsletterParsed.data
 
-  const { title, month, socialSkill, notes, vocabularies, topics, videos, id } = newsletterData
+  const { title, month, socialSkill, notes, vocabularies, topics, videos, id, grade } = newsletterData
 
   try {
     const prismaTx = await prisma.$transaction(async (tx) => {
@@ -109,7 +110,8 @@ export const createUpdateNewsletter = async (formData: FormData) => {
               createMany: {
                 data: videos
               }
-            }
+            },
+            grade
           }
         })
 
@@ -146,7 +148,8 @@ export const createUpdateNewsletter = async (formData: FormData) => {
               createMany: {
                 data: videos
               }
-            }
+            },
+            grade
           }
         })
 
