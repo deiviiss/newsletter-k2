@@ -92,11 +92,12 @@ model Video {
 }
 
 model User {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  email    String @unique
+  email    String  @unique
   password String // Password for authentication
-  role     Role   @default(admin) // Role of the user (default: admin)
+  role     Role    @default(admin) // Role of the user (default: admin)
+  isActive Boolean @default(true) // User status (active/inactive)
 
   @@map("users")
 }

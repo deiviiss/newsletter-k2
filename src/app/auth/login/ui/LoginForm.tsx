@@ -19,7 +19,7 @@ export const LoginForm = () => {
   }, [state])
 
   return (
-    <form action={dispatch} className="flex flex-col">
+    <form action={dispatch} className="w-full flex flex-col max-w-[440px]">
 
       <label htmlFor="email">Correo electrónico</label>
       <input

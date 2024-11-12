@@ -30,7 +30,7 @@ interface IData {
   email: string
   name: string
   password?: string | null
-  role: Role
+  role?: Role
 }
 
 export const updateUser = async (data: IData) => {
@@ -50,7 +50,7 @@ export const updateUser = async (data: IData) => {
       name: string
       email: string
       password?: string
-      role: Role
+      role?: Role
     } = {
       name,
       email,

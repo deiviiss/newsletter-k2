@@ -2,7 +2,7 @@ import { type Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { IoPencil, IoNewspaper, IoCafe, IoPeopleOutline } from 'react-icons/io5'
-import { getUserById, getUserSessionServer } from '@/actions'
+import { getUserById, getUserSessionServer, validateUserAdmin } from '@/actions'
 import { ButtonLogout } from '@/components'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -21,6 +21,7 @@ const ProfilePage = async () => {
   }
 
   const { user } = await getUserById(userSession.id)
+  const isAdmin = await validateUserAdmin()
 
   if (!user) {
     redirect('/')
@@ -70,19 +71,30 @@ const ProfilePage = async () => {
               <span>Manage Newsletter</span>
             </Link>
           </Button>
-          <Button asChild variant='outline' size='sm' className='w-full gap-2'>
-            <Link href="/admin/breakfasts">
-              <IoCafe />
-              <span>Manage Breakfast</span>
-            </Link>
-          </Button>
-          <Button asChild variant='outline' size='sm' className='w-full gap-2'>
-            <Link href="/admin/users">
-              <IoPeopleOutline />
-              <span>Manage Users</span>
-            </Link>
-          </Button>
-
+          {
+            isAdmin && (
+              <>
+                <Button asChild variant='outline' size='sm' className='w-full gap-2'>
+                  <Link href="/admin/newsletters">
+                    <IoNewspaper />
+                    <span>Manage Newsletter</span>
+                  </Link>
+                </Button>
+                <Button asChild variant='outline' size='sm' className='w-full gap-2'>
+                  <Link href="/admin/breakfasts">
+                    <IoCafe />
+                    <span>Manage Breakfast</span>
+                  </Link>
+                </Button>
+                <Button asChild variant='outline' size='sm' className='w-full gap-2'>
+                  <Link href="/admin/users">
+                    <IoPeopleOutline />
+                    <span>Manage Users</span>
+                  </Link>
+                </Button>
+              </>
+            )
+          }
           <ButtonLogout />
 
         </CardFooter>

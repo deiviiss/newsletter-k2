@@ -260,7 +260,9 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
                 <Button type="button" variant="outline" size="sm" className="mt-8" onClick={() => { removeVocab(index) }}>Remove</Button>
               </div>
             ))}
-            <Button type="button" variant="outline" onClick={() => { appendVocab({ word: '', pronunciation: '' }) }}>Add Vocabulary</Button>
+            <div className='w-full flex justify-end'>
+              <Button type="button" variant="outline" onClick={() => { appendVocab({ word: '', pronunciation: '' }) }}>Add Vocabulary</Button>
+            </div>
           </CardContent>
           {/* Topics */}
           <CardHeader>
@@ -343,9 +345,15 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
           </CardContent>
 
           <CardFooter>
-            <Button type="submit" disabled={loading}>
-              {loading ? 'Saving...' : (newsletter ? 'Update Newsletter' : 'Create Newsletter')}
-            </Button>
+            <div className='w-full flex justify-end'>
+              <Button
+                size={'sm'}
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? 'Saving...' : (newsletter ? 'Update Newsletter' : 'Create Newsletter')}
+              </Button>
+            </div>
           </CardFooter>
         </Card>
       </form>

@@ -108,7 +108,8 @@ export const initialData: SeedData = {
       email: 'kelly@educationalnewsletter.com',
       name: 'Kelly',
       password: bcrypt.hashSync('userseed'),
-      role: 'admin'
+      role: 'admin',
+      isActive: true
     }
   ]
 }

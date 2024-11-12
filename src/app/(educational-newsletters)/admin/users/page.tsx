@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { getPaginatedUsers } from '@/actions'
+import { getPaginatedUsers, validateUserAdmin } from '@/actions'
 import { CardUser, Pagination, UsersTable } from '@/components'
 import { Button } from '@/components/ui/button'
 
@@ -13,6 +13,12 @@ interface Props {
 }
 
 export default async function UsersPage({ searchParams }: Props) {
+  const isAdmin = await validateUserAdmin()
+
+  if (!isAdmin) {
+    redirect('/profile')
+  }
+
   const page = searchParams.page ? parseInt(searchParams.page) : 1
   const { ok, users = [], totalPages } = await getPaginatedUsers({ page })
 

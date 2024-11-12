@@ -1,8 +1,6 @@
 'use client'
 
-import Link from 'next/link'
-import { BsPencil } from 'react-icons/bs'
-import { Button } from '@/components/ui/button'
+import { MenuOptionsUser } from './MenuOptions'
 import { type IUser } from '@/interfaces'
 
 interface Props {
@@ -19,6 +17,9 @@ export const UsersTable = ({ users }: Props) => {
           </th>
           <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
             Nombre completo
+          </th>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+            Role
           </th>
           <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
             Role
@@ -44,16 +45,11 @@ export const UsersTable = ({ users }: Props) => {
               <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap capitalize">
                 {user.role}
               </td>
+              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap capitalize">
+                {user.isActive ? 'Activo' : 'Inactivo'}
+              </td>
               <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {/* <MenuOptionsUser user={user} /> */}
-                <Button asChild size="sm" variant="outline" className="h-8 gap-1">
-                  <Link
-                    href={`/admin/users/${user.id}/edit`}
-                    className="hover:underline flex items-center gap-2">
-                    <BsPencil className="h-3.5 w-3.5" />
-                    <span className='hidden min-[500px]:block'>Editar</span>
-                  </Link>
-                </Button>
+                <MenuOptionsUser user={user} />
               </td>
             </tr>
           ))

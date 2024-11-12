@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 import { useState, useEffect, type ChangeEvent } from 'react'
 import { IoAdd, IoTrash, IoPencil } from 'react-icons/io5'
 import { toast } from 'sonner'
@@ -18,6 +19,9 @@ interface Newsletter {
 }
 
 export default function NewsletterDashboard() {
+  const { data: session } = useSession()
+  const isAdmin = session?.user?.role === 'admin'
+
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
   const [filteredNewsletters, setFilteredNewsletters] = useState<Newsletter[]>([])
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -94,6 +98,8 @@ export default function NewsletterDashboard() {
           position: 'top-right',
           duration: 2000
         })
+
+        return
       }
 
       toast.success(message, {
@@ -224,27 +230,31 @@ export default function NewsletterDashboard() {
                           </Link>
                         </Button>
 
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button variant="outline" size="sm">
-                              <IoTrash className="h-4 w-4" />
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the newsletter.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction onClick={async () => { await handleDelete(newsletter.id) }}>
-                                Delete
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+                        {
+                          isAdmin && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="sm">
+                                  <IoTrash className="h-4 w-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete the newsletter.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={async () => { await handleDelete(newsletter.id) }}>
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )
+                        }
                       </div>
                       <Link href={`/newsletters/${newsletter.title}`}>
                         <div className="flex items-center justify-between">

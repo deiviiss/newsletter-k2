@@ -15,6 +15,7 @@ export const Sidebar = () => {
   const { data: session } = useSession()
   const isAuthenticated = !!session?.user
   const isAdmin = session?.user?.role === 'admin'
+  const isTeacher = session?.user?.role === 'teacher'
 
   return (
     <div>
@@ -86,6 +87,26 @@ export const Sidebar = () => {
 
           {/* divisor */}
           <div className="w-full h-px bg-gray-100 rounded transition-all mt-5"></div>
+
+          {
+            isTeacher && (
+              <>
+                <Link href='/profile'
+                  onClick={() => { closeMenu() }}
+                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  <IoPersonOutline size={30} />
+                  <span className='ml-3 text-xl'>Profile</span>
+                </Link>
+
+                <Link href='/admin/newsletters'
+                  onClick={() => { closeMenu() }}
+                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  <IoNewspaperOutline size={30} />
+                  <span className='ml-3 text-xl'>Newsletters</span>
+                </Link>
+              </>
+            )
+          }
 
           {
             isAdmin && (
