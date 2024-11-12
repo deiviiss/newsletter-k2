@@ -1,8 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { type IUser } from '@/interfaces'
 
 const formUserSchema = z.object({
@@ -20,27 +21,32 @@ const formUserSchema = z.object({
     .uuid(),
   name: z
     .string()
-    .min(3, { message: 'El nombre debe tener al menos 3 caracteres' })
-    .max(255, { message: 'El nombre debe tener menos de 255 caracteres' }),
+    .min(3, { message: 'The name must be at least 3 characters long' })
+    .max(255, { message: 'The name must be less than 255 characters' }),
   email: z
     .string()
-    .email({ message: 'El correo electrónico no es válido' }),
+    .email({ message: 'Invalid email' }),
   password: z
     .string()
     .refine(value => value === '' || (value.length >= 6 && value.length <= 10), {
-      message: 'La contraseña debe tener entre 6 y 10 caracteres si será cambiada'
-    })
+      message: 'The password must be between 6 and 10 characters long if it is to be changed'
+    }),
+  role: z.enum(['teacher', 'admin']).optional()
 })
 
 export const EditForm = (user: IUser) => {
+  const isAdmin = useSession().data?.user?.role === 'admin'
+
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const defaultValuesForm = {
     id: user.id,
     name: user.name,
     email: user.email,
-    password: ''
+    password: '',
+    role: user.role
   }
 
   const form = useForm<z.infer<typeof formUserSchema>>({
@@ -68,7 +74,15 @@ export const EditForm = (user: IUser) => {
       duration: 2000
     })
 
-    router.replace('/profile')
+    const redirectTo = searchParams.get('redirectTo')
+    const isProfile = redirectTo === 'profile'
+
+    if (isProfile) {
+      router.replace('/profile')
+      return
+    }
+
+    router.replace('/admin/users')
   }
 
   return (
@@ -84,7 +98,7 @@ export const EditForm = (user: IUser) => {
               </CardDescription>
             </CardHeader>
 
-            <CardContent>
+            <CardContent className='space-y-5'>
 
               <FormField
                 control={form.control}
@@ -94,7 +108,6 @@ export const EditForm = (user: IUser) => {
                     <FormLabel>Full name</FormLabel>
                     <FormControl>
                       <Input
-                        className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
                         type='text'
                         {...field}
                       />
@@ -104,6 +117,30 @@ export const EditForm = (user: IUser) => {
                 )}
               />
 
+              {isAdmin && (
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Role</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a role" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="teacher">Teacher</SelectItem>
+                          <SelectItem value="admin">Admin</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               <FormField
                 control={form.control}
                 name="email"
@@ -112,7 +149,6 @@ export const EditForm = (user: IUser) => {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
                         type='email'
                         {...field}
                       />
@@ -130,7 +166,6 @@ export const EditForm = (user: IUser) => {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                        className='focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-blue-200'
                         type='password'
                         {...field}
                       />
@@ -144,24 +179,22 @@ export const EditForm = (user: IUser) => {
               />
 
               <div className='flex gap-2 w-full text-center justify-end my-10'>
+
+                <Button
+                  size="sm"
+                  type='button'
+                  onClick={() => { router.back() }}
+                  variant='destructive'
+                >
+                  Cancel
+                </Button>
+
                 <Button
                   size='sm'
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Save
-                </Button>
-
-                <Button
-                  asChild
-                  size="sm"
-                  variant='destructive'
-                >
-                  <Link
-                    href="/profile"
-                  >
-                    Cancel
-                  </Link>
+                  Update
                 </Button>
               </div>
 

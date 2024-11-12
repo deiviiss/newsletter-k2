@@ -1,7 +1,5 @@
 'use client'
 
-import Link from 'next/link'
-
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
@@ -21,7 +19,7 @@ export const LoginForm = () => {
   }, [state])
 
   return (
-    <form action={dispatch} className="flex flex-col">
+    <form action={dispatch} className="w-full flex flex-col max-w-[440px]">
 
       <label htmlFor="email">Correo electrónico</label>
       <input
@@ -52,24 +50,6 @@ export const LoginForm = () => {
       </div>
 
       <LoginButton />
-
-      {/* divisor l ine */}
-      <div className="flex items-center my-5">
-        <div className="flex-1 border-t border-gray-500"></div>
-        <div className="px-2 text-gray-800">O</div>
-        <div className="flex-1 border-t border-gray-500"></div>
-      </div>
-
-      <Button
-        variant={'secondary'}
-        disabled={true}
-      >
-        <Link
-          href={`/auth/new-account?redirectTo=${redirectTo}`}
-        >
-          Crear una nueva cuenta
-        </Link>
-      </Button>
 
     </form >
   )

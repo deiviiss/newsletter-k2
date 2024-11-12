@@ -1,5 +1,7 @@
 import { type ITopic, type IVocabulary, type IVideo } from '@/interfaces'
 
+export type Grade = 'K2' | 'K3'
+
 export interface ISocialSkill {
   skill: string
   activity: string
@@ -18,4 +20,5 @@ export interface INewsletter {
   topics: ITopic[]
   videos: IVideo[]
   notes: INote[]
+  grade: Grade
 }

@@ -6,14 +6,24 @@ import { getNewsletters } from '@/actions/newsletter/get-newsletters'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { type Grade } from '@/interfaces'
 
 interface Newsletter {
   id: string
   title: string
   month: Date
+  grade: Grade
 }
 
-export default function NewsletterListPage() {
+interface Props {
+  searchParams: {
+    grade?: Grade
+  }
+}
+
+export default function NewsletterListPage({ searchParams }: Props) {
+  const grade: Grade = searchParams.grade || 'K2'
+
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
   const [filteredNewsletters, setFilteredNewsletters] = useState<Newsletter[]>([])
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -26,13 +36,13 @@ export default function NewsletterListPage() {
 
   useEffect(() => {
     fetchNewsletters()
-  }, [])
+  }, [searchParams.grade])
 
   const fetchNewsletters = async () => {
     setLoading(true)
     setError(null)
     try {
-      const { newsletters } = await getNewsletters({})
+      const { newsletters } = await getNewsletters({ grade })
 
       if (!newsletters) {
         setNewsletters([])
@@ -44,7 +54,8 @@ export default function NewsletterListPage() {
       const transformedNewsletters: Newsletter[] = newsletters.map(newsletter => ({
         id: newsletter.id,
         title: newsletter.title,
-        month: newsletter.month
+        month: newsletter.month,
+        grade: newsletter.grade
       }))
 
       setNewsletters(transformedNewsletters)
@@ -93,7 +104,7 @@ export default function NewsletterListPage() {
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">Newsletters K2</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">Newsletters {grade}</h1>
 
         {loading && (
           <div className="text-center my-10">
@@ -163,7 +174,7 @@ export default function NewsletterListPage() {
                         <div className="px-4 py-4 sm:px-6">
                           <div className="flex items-center justify-between">
                             <p className="text-sm font-medium text-primary truncate">
-                              {newsletter.title}
+                              {newsletter.grade} {newsletter.title}
                             </p>
                             <div className="ml-2 flex-shrink-0 flex">
                               <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

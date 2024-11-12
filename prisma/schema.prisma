@@ -16,13 +16,19 @@ datasource db {
 
 enum Role {
   admin // Role for the teacher/administrator
-  user // Role for the parents/users
+  teacher // Role for the teacher
+}
+
+enum Grade {
+  K2 // Kindergarten 2
+  K3 // Kindergarten 3
 }
 
 model Newsletter {
   id        String   @id @default(uuid())
   title     String   @unique // Newsletter title, e.g., "October 2024 Newsletter"
   month     DateTime // Date associated with the newsletter (month of publication)
+  grade     Grade    @default(K2) // Grade level associated with the newsletter
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -87,10 +93,11 @@ model Video {
 
 model User {
   id       String  @id @default(uuid())
-  email    String  @unique
   name     String
-  password String? // Password for authentication
+  email    String  @unique
+  password String // Password for authentication
   role     Role    @default(admin) // Role of the user (default: admin)
+  isActive Boolean @default(true) // User status (active/inactive)
 
   @@map("users")
 }

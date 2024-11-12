@@ -1,17 +1,22 @@
 'use server'
 
+import { type Grade } from '@/interfaces'
 import prisma from '@/lib/prisma'
 import { validatePageNumber } from '@/utils'
 
 interface PaginationOptions {
   page?: number
   take?: number
+  grade?: Grade
 }
 
-export const getNewsletters = async ({ page = 1, take = 6 }: PaginationOptions) => {
+export const getNewsletters = async ({ page = 1, take = 6, grade }: PaginationOptions) => {
   page = validatePageNumber(page)
 
   const newsletters = await prisma.newsletter.findMany({
+    where: {
+      grade
+    },
     take,
     skip: (page - 1) * take,
     include: {
@@ -25,7 +30,7 @@ export const getNewsletters = async ({ page = 1, take = 6 }: PaginationOptions) 
   if (!newsletters) {
     return {
       ok: false,
-      message: 'No se encontraron newsletters'
+      message: 'No newsletters found'
     }
   }
 

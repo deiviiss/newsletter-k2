@@ -4,8 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import { IoMenu } from 'react-icons/io5'
+import { IoChevronDown, IoMenu } from 'react-icons/io5'
 import { Button } from '../button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { titleFont } from '@/config/fonts'
 import { useUiStore } from '@/store'
 
@@ -33,7 +34,7 @@ export const TopMenu = () => {
   }, [])
 
   return (
-    <div className={`w-full fixed top-0 z-20 text-black ${bgColor} transition-colors duration-300`}>
+    <div className={`fixed-menu w-full fixed top-0 z-20 text-black ${bgColor} transition-colors duration-300`}>
       <header className="container mx-auto lg:px-20 px-4 py-2 flex justify-between items-center">
         <Link href={'/'}>
           <div className="flex items-center space-x-2">
@@ -52,7 +53,21 @@ export const TopMenu = () => {
             <IoMenu size={30} />
           </Button>
           <ul className="hidden space-x-4 md:flex">
-            <li><Link href="/newsletters" className="hover:text-blue-400 transition-colors">Newsletters</Link></li>
+            <li>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center hover:text-blue-400 transition-colors">
+                  Newsletters <IoChevronDown className="ml-1 h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <Link href="/newsletters?grade=K2" className="w-full">K2</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/newsletters?grade=K3" className="w-full">K3</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </li>
             <li><Link href="/breakfasts" className="hover:text-blue-400 transition-colors">Breakfasts</Link></li>
             {
               !isAuthenticated

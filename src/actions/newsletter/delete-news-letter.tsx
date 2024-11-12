@@ -1,9 +1,19 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { validateUserAdmin } from '../auth/validate-user-admin'
 import prisma from '@/lib/prisma'
 
 export const deleteNewsLetter = async (id: string) => {
+  const isAdmin = await validateUserAdmin()
+
+  if (!isAdmin) {
+    return {
+      ok: false,
+      message: 'You are not authorized to perform this action'
+    }
+  }
+
   try {
     const newsletter = await prisma.newsletter.delete({
       where: {

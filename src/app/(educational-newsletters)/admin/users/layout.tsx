@@ -1,17 +1,16 @@
 import { redirect } from 'next/navigation'
-import { getUserSessionServer } from '@/actions'
+import { validateUserAdmin } from '@/actions'
 
-export default async function AdminLayout({
+export default async function UserLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const isAuthenticated = await getUserSessionServer()
+  const isAdmin = await validateUserAdmin()
 
-  if (!isAuthenticated) {
+  if (!isAdmin) {
     redirect('/profile')
   }
-
   return (
     <div className='px-1 md:p-4 min-[992px]:p-6 min-[1200px]:p-10 pb-10 bg-gray-100'>
       {children}

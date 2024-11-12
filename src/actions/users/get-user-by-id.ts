@@ -18,26 +18,27 @@ export const getUserById = async (id: string): Promise<IResponse> => {
         email: true,
         name: true,
         password: true,
-        role: true
+        role: true,
+        isActive: true
       }
     })
 
     if (!user) {
       return {
         ok: false,
-        message: 'Usuario no encontrado'
+        message: 'User not found'
       }
     }
 
     return {
       ok: true,
-      message: 'Usuario encontrado',
+      message: 'User found',
       user
     }
   } catch (error) {
     return {
       ok: false,
-      message: 'Error al buscar usuario, contacta a soporte'
+      message: 'Error getting user contact support'
     }
   }
 }

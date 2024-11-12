@@ -10,12 +10,12 @@ export const changeUserRole = async (userId: string, role: string) => {
   if (!isAdmin) {
     return {
       ok: false,
-      message: 'Debe estar autenticado como administrador'
+      message: 'Should be an admin to change user role'
     }
   }
 
   try {
-    const newRole = role === 'admin' ? 'admin' : 'user'
+    const newRole = role === 'admin' ? 'admin' : 'teacher'
 
     const user = await prisma.user.update({
       where: {
@@ -35,7 +35,7 @@ export const changeUserRole = async (userId: string, role: string) => {
   } catch (error) {
     return {
       ok: false,
-      message: 'No se pudo cambiar el rol del usuario'
+      message: 'Error updating user role'
     }
   }
 }

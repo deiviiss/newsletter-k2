@@ -4,7 +4,7 @@ services:
   postgresDB:
     image: postgres:15.3
     restart: always
-    container_name: huerto-de-la-ilusion-postgres
+    container_name: educational-newsletter-postgres
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_DB: ${DB_NAME}

@@ -51,10 +51,9 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 export default async function NewsletterPage({ params }: { params: { slug: string } }) {
   const slug = params.slug
   const decodedTitle = decodeURIComponent(slug)
-
   const { ok, newsletter } = await getNewsletterByTitle(decodedTitle)
+  const allNewsletters = await getAllNewslettersOrderedByMonth({ grade: newsletter?.grade || 'K2' })
 
-  const allNewsletters = await getAllNewslettersOrderedByMonth()
   const currentNewsletterIndex = allNewsletters.findIndex(n => decodeURIComponent(n.title) === decodedTitle)
   const previousNewsletter = currentNewsletterIndex > 0 ? allNewsletters[currentNewsletterIndex - 1] : null
   const nextNewsletter = currentNewsletterIndex < allNewsletters.length - 1 ? allNewsletters[currentNewsletterIndex + 1] : null
