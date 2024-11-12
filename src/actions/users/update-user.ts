@@ -3,6 +3,7 @@
 import bcrypt from 'bcryptjs'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { type Role } from '@/interfaces'
 import prisma from '@/lib/prisma'
 
 const userSchema = z.object({
@@ -20,7 +21,8 @@ const userSchema = z.object({
     .string()
     .refine(value => value === '' || (value.length >= 6 && value.length <= 10), {
       message: 'La contraseña debe tener entre 6 y 10 caracteres si será cambiada'
-    })
+    }),
+  role: z.enum(['teacher', 'admin'])
 })
 
 interface IData {
@@ -28,6 +30,7 @@ interface IData {
   email: string
   name: string
   password?: string | null
+  role: Role
 }
 
 export const updateUser = async (data: IData) => {
@@ -41,15 +44,17 @@ export const updateUser = async (data: IData) => {
       }
     }
 
-    const { name, email, password, id } = userParsed.data
+    const { name, email, password, id, role } = userParsed.data
 
     const dataUserUpdated: {
       name: string
       email: string
       password?: string
+      role: Role
     } = {
       name,
-      email
+      email,
+      role
     }
 
     if (password.length > 0) {

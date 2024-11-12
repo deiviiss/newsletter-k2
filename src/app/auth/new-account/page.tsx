@@ -1,16 +1,16 @@
 import { redirect } from 'next/navigation'
 import { RegisterForm } from './ui/RegisterForm'
-import { titleFont } from '@/config/fonts'
+import { validateUserAdmin } from '@/actions'
 
-export default function NewAccountPage() {
-  redirect('/auth/login')
+export default async function NewAccountPage() {
+  const isAdmin = await validateUserAdmin()
+
+  if (!isAdmin) {
+    redirect('/')
+  }
+
   return (
-    <div className="flex flex-col min-h-screen pt-32">
-
-      <h1 className={`${titleFont.className} text-4xl mb-5`}>Nueva cuenta</h1>
-
-      <RegisterForm />
-
+    <div className="w-full m-auto sm:max-w-[400px] py-4">      <RegisterForm />
     </div>
   )
 }

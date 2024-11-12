@@ -2,6 +2,8 @@ export interface IUser {
   id: string
   email: string
   name: string
-  password: string | null
-  role: 'admin' | 'user'
+  password: string
+  role: Role
 }
+
+export type Role = 'admin' | 'teacher'

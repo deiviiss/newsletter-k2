@@ -39,7 +39,7 @@ export const MenuOptionsUser = ({ user }: Props) => {
           <Link
             href={`/admin/users/${id}/edit`}
             className="hover:underline">
-            Editar
+            Edit
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
