@@ -45,7 +45,7 @@ export default async function LandingPage() {
                   ))}</p>
                 </CardContent>
                 <CardFooter>
-                  <Link href={`/newsletters/${newsletter.title}`} passHref>
+                  <Link href={`/newsletters/${newsletter.title}?grade=${newsletter.grade}`} passHref>
                     <Button>View More</Button>
                   </Link>
                 </CardFooter>
@@ -60,7 +60,7 @@ export default async function LandingPage() {
                   className='max-w-2xl justify-center flex mx-auto'
                 >
                   <Link href="/newsletters?grade=K2" passHref>
-                    View All Newsletters
+                    View All Newsletters K2
                   </Link>
                 </Button>
               </div>
@@ -90,7 +90,7 @@ export default async function LandingPage() {
                   ))}</p>
                 </CardContent>
                 <CardFooter>
-                  <Link href={`/newsletters/${newsletter.title}`} passHref>
+                  <Link href={`/newsletters/${newsletter.title}?grade=${newsletter.grade}`} passHref>
                     <Button>View More</Button>
                   </Link>
                 </CardFooter>
@@ -105,7 +105,7 @@ export default async function LandingPage() {
                   className='max-w-2xl justify-center flex mx-auto'
                 >
                   <Link href="/newsletters?grade=K3" passHref>
-                    View All Newsletters
+                    View All  K3
                   </Link>
                 </Button>
               </div>

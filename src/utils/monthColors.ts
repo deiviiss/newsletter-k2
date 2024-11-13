@@ -9,6 +9,6 @@ export const monthColors: Record<number, string> = {
   8: 'bg-[#FF3333]',
   9: 'bg-[#004AAD]',
   10: 'bg-[#8C52FF]',
-  11: 'bg-[#FF33D4]',
+  11: 'bg-[#8B2703]',
   12: 'bg-[#33FFA8]'
 }

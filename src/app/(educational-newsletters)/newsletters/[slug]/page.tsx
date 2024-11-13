@@ -1,7 +1,9 @@
 import { type Metadata, type ResolvingMetadata } from 'next'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { getNewsletterByTitle, getAllNewslettersOrderedByMonth } from '@/actions/newsletter'
 import { Button } from '@/components/ui/button'
+import { convertToGrade } from '@/utils/convertToGrade'
 import { monthColors } from '@/utils/monthColors'
 
 export const revalidate = 60 * 60 * 24 * 7 // 1 week
@@ -9,6 +11,9 @@ export const revalidate = 60 * 60 * 24 * 7 // 1 week
 interface Props {
   params: {
     slug: string
+  }
+  searchParams: {
+    grade?: string
   }
 }
 
@@ -48,34 +53,45 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   }
 }
 
-export default async function NewsletterPage({ params }: { params: { slug: string } }) {
+export default async function NewsletterPage({ params, searchParams }: Props) {
   const slug = params.slug
+
+  const grade = convertToGrade(searchParams.grade)
+
+  if (!grade) {
+    redirect('/newsletters')
+  }
+
   const decodedTitle = decodeURIComponent(slug)
-  const { ok, newsletter } = await getNewsletterByTitle(decodedTitle)
-  const allNewsletters = await getAllNewslettersOrderedByMonth({ grade: newsletter?.grade || 'K2' })
+
+  const { ok, newsletter } = await getNewsletterByTitle(decodedTitle, grade)
+
+  const allNewsletters = await getAllNewslettersOrderedByMonth({ grade })
 
   const currentNewsletterIndex = allNewsletters.findIndex(n => decodeURIComponent(n.title) === decodedTitle)
+
   const previousNewsletter = currentNewsletterIndex > 0 ? allNewsletters[currentNewsletterIndex - 1] : null
+
   const nextNewsletter = currentNewsletterIndex < allNewsletters.length - 1 ? allNewsletters[currentNewsletterIndex + 1] : null
 
   if (!ok || !newsletter) {
-    return <div>No se encontró el newsletter</div>
+    redirect('/newsletters')
   }
 
   const monthNumber = newsletter.month.getUTCMonth() + 1
   const headerColor = monthColors[monthNumber] || 'bg-blue-300'
 
   return (
-    <div className="min-h-screen bg-gray-100 py-11 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 pt-0 py-11 px-1 md:px-6 sm:pt-8 lg:px-8">
       <div className="max-w-6xl mx-auto  animate-fade-up">
         <div className='flex items-center justify-center mb-11 relative'>
           {previousNewsletter && (
             <Button
               asChild
-              className="mr-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-black absolute left-0 -bottom-10"
+              className={`mr-4 p-2 ${headerColor} rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 hover:text-black absolute left-0 -bottom-12`}
               aria-label="Previous Newsletter"
             >
-              <Link href={`/newsletters/${previousNewsletter.title}`}>
+              <Link href={`/newsletters/${previousNewsletter.title}?grade=${newsletter.grade}`}>
                 {/* left arrow icon */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -84,14 +100,47 @@ export default async function NewsletterPage({ params }: { params: { slug: strin
             </Button>
           )}
 
-          <h1 className="text-4xl font-bold text-gray-900 text-center">{newsletter.title}</h1>
+          <div className={`w-full ${headerColor} px-6 py-4`}>
+            <div className="text-center text-white relative mb-20">
+              <h1 className="text-lg font-semibold tracking-wide">
+                GK FOUNDATION PUBLIC BILINGUAL KINDERGARTEN
+              </h1>
+              <h2 className="text-md">
+                JARDÍN DE NIÑOS &quot;EL HUERTO DE LA ILUSIÓN&quot;
+              </h2>
+
+              <div className="mx-auto w-full max-w-[720px] relative bg-green-500">
+                {/* Left circle with K3 */}
+                <div className="border border-white text-white w-20 h-20 rounded-full flex items-center justify-center font-bold text-3xl absolute -bottom-14 -left-5">
+                  {newsletter.grade}
+                </div>
+                {/* Right date bubble */}
+                <div className="border border-white text-white px-4 py-2 rounded-2xl font-bold absolute -bottom-14 -right-5">
+                  <div className="text-2xl leading-tight">{newsletter.month.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })}</div>
+                  <div className="text-xl"> {newsletter.month.toLocaleDateString('en-US', { year: 'numeric', timeZone: 'UTC' })}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Newsletter text */}
+            <div className="flex justify-center items-center w-full text-white">
+
+              <h1 className="text-4xl text-center font-bold tracking-wider relative">
+
+                {/* Decorative lines */}
+                <span className="absolute -left-6 top-1/2 w-4 h-1 bg-white transform -translate-y-1/2" />
+                {newsletter.title}
+                <span className="absolute -right-6 top-1/2 w-4 h-1 bg-white transform -translate-y-1/2" />
+              </h1>
+            </div>
+          </div>
 
           {nextNewsletter && (
             <Button asChild
-              className="ml-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-black absolute right-0 -bottom-10"
+              className={`ml-4 p-2 ${headerColor} rounded-full hover:bg-gray-300 hover:text-black focus:outline-none focus:ring-2 focus:ring-gray-400 absolute right-0 -bottom-12`}
               aria-label="Next Newsletter"
             >
-              <Link href={`/newsletters/${nextNewsletter.title}`}>
+              <Link href={`/newsletters/${nextNewsletter.title}?grade=${newsletter.grade}`}>
                 {/* right arrow icon */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
