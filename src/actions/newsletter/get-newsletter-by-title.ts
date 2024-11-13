@@ -3,7 +3,7 @@
 import prisma from '@/lib/prisma'
 
 export const getNewsletterByTitle = async (title: string) => {
-  const newsletter = await prisma.newsletter.findUnique({
+  const newsletter = await prisma.newsletter.findFirst({
     where: {
       title
     },
