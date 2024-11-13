@@ -83,13 +83,13 @@ export const CardUser = ({ user }: Props) => {
           <CardDescription className="text-gray-500 text-sm capitalize">{user.role}</CardDescription>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex flex-col min-[430px]:flex-row items-center gap-2">
           <Button asChild size="sm" variant="outline" className="h-8 gap-1">
             <Link
               href={`/admin/users/${user.id}/edit`}
               className="hover:underline flex items-center gap-2">
               <BsPencil className="h-3.5 w-3.5" />
-              <span className='hidden min-[500px]:block'>Editar</span>
+              <span className='hidden min-[550px]:block'>Editar</span>
             </Link>
           </Button>
           <Button
@@ -104,12 +104,12 @@ export const CardUser = ({ user }: Props) => {
                 ? (
                   <>
                     <BsToggleOn className="h-3.5 w-3.5" />
-                    <span className="hover:underline hidden min-[500px]:block">Desactive</span>
+                    <span className="hover:underline hidden min-[550px]:block">Desactive</span>
                   </>)
                 : (
                   <>
                     <BsToggleOff className="h-3.5 w-3.5" />
-                    <span className="hover:underline hidden min-[500px]:block">Active</span>
+                    <span className="hover:underline hidden min-[550px]:block">Active</span>
                   </>)
             }
           </Button>

@@ -75,12 +75,6 @@ const ProfilePage = async () => {
             isAdmin && (
               <>
                 <Button asChild variant='outline' size='sm' className='w-full gap-2'>
-                  <Link href="/admin/newsletters">
-                    <IoNewspaper />
-                    <span>Manage Newsletter</span>
-                  </Link>
-                </Button>
-                <Button asChild variant='outline' size='sm' className='w-full gap-2'>
                   <Link href="/admin/breakfasts">
                     <IoCafe />
                     <span>Manage Breakfast</span>
