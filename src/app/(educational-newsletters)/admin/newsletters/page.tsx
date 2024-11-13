@@ -11,17 +11,27 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { type Grade } from '@/interfaces'
+import { convertToGrade } from '@/utils/convertToGrade'
 
 interface Newsletter {
   id: string
   title: string
   month: Date
-  grade: string
+  grade: Grade
 }
 
-export default function NewsletterDashboard() {
+interface Props {
+  searchParams: {
+    grade?: string
+  }
+}
+
+export default function NewsletterDashboard({ searchParams }: Props) {
   const { data: session } = useSession()
   const isAdmin = session?.user?.role === 'admin'
+
+  const grade = convertToGrade(searchParams.grade)
 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
   const [filteredNewsletters, setFilteredNewsletters] = useState<Newsletter[]>([])
@@ -41,7 +51,7 @@ export default function NewsletterDashboard() {
     setLoading(true)
     setError(null)
     try {
-      const { newsletters } = await getNewsletters({})
+      const { newsletters } = await getNewsletters({ grade })
       if (!newsletters) {
         setNewsletters([])
         setFilteredNewsletters([])
@@ -227,7 +237,7 @@ export default function NewsletterDashboard() {
                           size="sm"
                           className="mr-2"
                         >
-                          <Link href={`/admin/newsletters/${newsletter.title}`}>
+                          <Link href={`/admin/newsletters/${newsletter.title}?grade=${newsletter.grade}`}>
                             <IoPencil className="h-4 w-4" />
                           </Link>
                         </Button>
@@ -258,10 +268,10 @@ export default function NewsletterDashboard() {
                           )
                         }
                       </div>
-                      <Link href={`/newsletters/${newsletter.title}`}>
+                      <Link href={`/newsletters/${newsletter.title}?grade=${newsletter.grade}`}>
                         <div className="flex items-center justify-between">
                           <p className="text-sm font-medium text-primary truncate">
-                            {newsletter.grade} - {newsletter.title}
+                            {newsletter.title} - {newsletter.grade}
                           </p>
 
                           <div className="ml-2 flex-shrink-0 flex">

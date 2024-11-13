@@ -1,11 +1,13 @@
 'use server'
 
+import { type Grade } from '@/interfaces'
 import prisma from '@/lib/prisma'
 
-export const getNewsletterByTitle = async (title: string) => {
+export const getNewsletterByTitle = async (title: string, grade?: Grade) => {
   const newsletter = await prisma.newsletter.findFirst({
     where: {
-      title
+      title,
+      ...(grade && { grade })
     },
     include: {
       topics: true,
