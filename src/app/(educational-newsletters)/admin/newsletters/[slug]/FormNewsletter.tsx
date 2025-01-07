@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { type INewsletter } from '@/interfaces'
+import { type Newsletter } from '@/interfaces'
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -43,13 +43,16 @@ const formSchema = z.object({
   })),
   grade: z.enum(['K2', 'K3'], {
     message: 'Grade must be K2 or K3.'
+  }),
+  playlist: z.object({
+    url: z.string().url('Must be a valid URL.')
   })
 })
 
 type FormValues = z.infer<typeof formSchema>
 
 interface NewsletterFormProps {
-  newsletter?: INewsletter
+  newsletter?: Newsletter
 }
 
 export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
@@ -64,7 +67,8 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
     vocabulary: newsletter?.vocabularies.length ? newsletter.vocabularies : [{ word: '', pronunciation: '' }],
     topics: newsletter?.topics.length ? newsletter.topics : [{ name: '' }],
     videos: newsletter?.videos.length ? newsletter.videos : [{ title: '', by: '', url: '' }],
-    grade: newsletter?.grade ?? 'K2'
+    grade: newsletter?.grade ?? 'K2',
+    playlist: newsletter?.playlist ?? { title: '', url: '' }
   }
 
   const form = useForm<FormValues>({
@@ -106,6 +110,7 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
       formData.append('topics', JSON.stringify(values.topics))
       formData.append('videos', JSON.stringify(values.videos))
       formData.append('grade', values.grade)
+      formData.append('playlist', JSON.stringify(values.playlist))
 
       const { ok, message } = await createUpdateNewsletter(formData)
 
@@ -370,6 +375,26 @@ export default function NewsletterForm({ newsletter }: NewsletterFormProps) {
             <div className='w-full flex justify-end'>
               <Button type="button" variant="outline" onClick={() => { appendVideo({ title: '', by: '', url: '' }) }}>Add Video</Button>
             </div>
+          </CardContent>
+
+          {/* Playlist */}
+          <CardHeader>
+            <CardTitle>Playlist</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <FormField
+              control={form.control}
+              name="playlist.url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Url</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Playlist Url" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </CardContent>
 
           <CardFooter>

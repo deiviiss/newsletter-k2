@@ -38,7 +38,10 @@ const newsletterSchema = z.object({
     by: z.string().min(1, 'Video creator cannot be empty.'),
     url: z.string().url('Must be a valid URL.')
   })),
-  grade: z.enum(['K2', 'K3'])
+  grade: z.enum(['K2', 'K3']),
+  playlist: z.object({
+    url: z.string().url('Must be a valid URL.')
+  })
 })
 
 export const createUpdateNewsletter = async (formData: FormData) => {
@@ -48,6 +51,7 @@ export const createUpdateNewsletter = async (formData: FormData) => {
   const parsedVocabulary = JSON.parse(formData.get('vocabulary') as string)
   const parsedTopics = JSON.parse(formData.get('topics') as string)
   const parsedVideos = JSON.parse(formData.get('videos') as string)
+  const parsedPlaylist = JSON.parse(formData.get('playlist') as string)
 
   const dataToValidate = {
     ...data,
@@ -55,7 +59,8 @@ export const createUpdateNewsletter = async (formData: FormData) => {
     notes: parsedNotes,
     vocabularies: parsedVocabulary,
     topics: parsedTopics,
-    videos: parsedVideos
+    videos: parsedVideos,
+    playlist: parsedPlaylist
   }
 
   const newsletterParsed = newsletterSchema.safeParse(dataToValidate)
@@ -69,7 +74,7 @@ export const createUpdateNewsletter = async (formData: FormData) => {
 
   const newsletterData = newsletterParsed.data
 
-  const { title, month, socialSkill, notes, vocabularies, topics, videos, id, grade } = newsletterData
+  const { title, month, socialSkill, notes, vocabularies, topics, videos, id, grade, playlist } = newsletterData
 
   try {
     const prismaTx = await prisma.$transaction(async (tx) => {
@@ -85,6 +90,12 @@ export const createUpdateNewsletter = async (formData: FormData) => {
               upsert: {
                 update: socialSkill,
                 create: socialSkill
+              }
+            },
+            playlist: {
+              upsert: {
+                update: playlist,
+                create: playlist
               }
             },
             notes: {
@@ -128,6 +139,9 @@ export const createUpdateNewsletter = async (formData: FormData) => {
             month,
             socialSkill: {
               create: socialSkill
+            },
+            playlist: {
+              create: playlist
             },
             notes: {
               createMany: {

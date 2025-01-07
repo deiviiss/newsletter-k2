@@ -1,4 +1,4 @@
-export interface IVocabulary {
+export interface Vocabulary {
   word: string
   pronunciation: string
 }

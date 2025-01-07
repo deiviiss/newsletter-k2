@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { IoLogoYoutube, IoArrowForward } from 'react-icons/io5'
 import { getNewsletters } from '@/actions/newsletter/get-newsletters'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -44,10 +45,26 @@ export default async function LandingPage() {
                     <span key={topic.name}>{topic.name}, </span>
                   ))}</p>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className='space-x-2'>
                   <Link href={`/newsletters/${newsletter.title}?grade=${newsletter.grade}`} passHref>
-                    <Button>View More</Button>
+                    <Button
+                      className='flex items-center justify-center gap-2'
+                      type='button'
+                    >
+                      <IoArrowForward className="w-5 h-5" />
+                      View More
+                    </Button>
                   </Link>
+                  <Button
+                    variant="secondary"
+                    className="flex items-center justify-center gap-2"
+                    asChild
+                  >
+                    <Link href={newsletter.playlist?.url ?? ''} target="_blank">
+                      <IoLogoYoutube className="w-5 h-5" />
+                      Play list
+                    </Link>
+                  </Button>
                 </CardFooter>
               </Card>
             ))
@@ -89,10 +106,20 @@ export default async function LandingPage() {
                     <span key={topic.name}>{topic.name}, </span>
                   ))}</p>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className='space-x-2'>
                   <Link href={`/newsletters/${newsletter.title}?grade=${newsletter.grade}`} passHref>
                     <Button>View More</Button>
                   </Link>
+                  <Button
+                    variant="secondary"
+                    className="flex items-center justify-center gap-2"
+                    asChild
+                  >
+                    <Link href={newsletter.playlist?.url ?? ''} target="_blank">
+                      <IoLogoYoutube className="w-5 h-5" />
+                      Play list
+                    </Link>
+                  </Button>
                 </CardFooter>
               </Card>
             ))
