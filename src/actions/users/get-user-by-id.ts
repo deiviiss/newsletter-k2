@@ -1,12 +1,12 @@
 'use server'
 
-import { type IUser } from '@/interfaces'
+import { type User } from '@/interfaces'
 import prisma from '@/lib/prisma'
 
 interface IResponse {
   ok: boolean
   message: string
-  user?: IUser
+  user?: User
 }
 
 export const getUserById = async (id: string): Promise<IResponse> => {

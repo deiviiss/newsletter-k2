@@ -63,10 +63,8 @@ export const createUpdateNewsletter = async (formData: FormData) => {
     playlist: parsedPlaylist
   }
 
-  console.log('dataToValidate', dataToValidate)
-
   const newsletterParsed = newsletterSchema.safeParse(dataToValidate)
-  console.log('newsletterParsed.success', newsletterParsed.error)
+
   if (!newsletterParsed.success) {
     return {
       ok: false,
@@ -190,7 +188,6 @@ export const createUpdateNewsletter = async (formData: FormData) => {
       message: prismaTx.message
     }
   } catch (error) {
-    console.log('error', error)
     if (error instanceof PrismaClientKnownRequestError) {
       if (error.code === 'P2002') {
         // Unique constraint error

@@ -1,10 +1,10 @@
 'use client'
 
 import { MenuOptionsUser } from './MenuOptions'
-import { type IUser } from '@/interfaces'
+import { type User } from '@/interfaces'
 
 interface Props {
-  users: IUser[]
+  users: User[]
 }
 
 export const UsersTable = ({ users }: Props) => {

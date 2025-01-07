@@ -1,4 +1,4 @@
-import { type ITopic, type IVocabulary, type IVideo } from '@/interfaces'
+import { type Topic, type Vocabulary, type Video } from '@/interfaces'
 
 export type Grade = 'K2' | 'K3'
 
@@ -11,8 +11,8 @@ export interface Note {
   content: string
 }
 
-export interface playlist {
-  title: string
+export interface Playlist {
+  title: string | null
   url: string
 }
 
@@ -21,10 +21,10 @@ export interface Newsletter {
   title: string
   month: Date
   socialSkill: SocialSkill | null
-  vocabularies: IVocabulary[]
-  topics: ITopic[]
-  videos: IVideo[]
+  vocabularies: Vocabulary[]
+  topics: Topic[]
+  videos: Video[]
   notes: Note[]
   grade: Grade
-  playlist: playlist | null
+  playlist: Playlist | null
 }

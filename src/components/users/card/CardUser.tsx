@@ -7,10 +7,10 @@ import { toggleUserStatus } from '@/actions/users/toggle-status'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { type IUser } from '@/interfaces'
+import { type User } from '@/interfaces'
 
 interface Props {
-  user: IUser
+  user: User
 }
 
 export const CardUser = ({ user }: Props) => {

@@ -13,7 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { type IUser } from '@/interfaces'
+import { type User } from '@/interfaces'
 
 const formUserSchema = z.object({
   id: z
@@ -34,7 +34,7 @@ const formUserSchema = z.object({
   role: z.enum(['teacher', 'admin']).optional()
 })
 
-export const EditForm = (user: IUser) => {
+export const EditForm = (user: User) => {
   const isAdmin = useSession().data?.user?.role === 'admin'
 
   const router = useRouter()

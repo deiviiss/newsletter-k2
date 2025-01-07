@@ -14,10 +14,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { type IUser } from '@/interfaces'
+import { type User } from '@/interfaces'
 
 interface Props {
-  user: IUser
+  user: User
 }
 export const MenuOptionsUser = ({ user }: Props) => {
   const { id, isActive, name } = user
