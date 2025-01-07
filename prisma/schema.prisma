@@ -39,6 +39,8 @@ model Newsletter {
 
   socialSkillId String?      @unique // Foreign key to associate with SocialSkill
   socialSkill   SocialSkill? @relation(fields: [socialSkillId], references: [id], onDelete: Cascade) // Relation 1:1 with SocialSkill (optional)
+  playlistId    String?      @unique // Foreign key to associate with Playlist
+  playlist      Playlist?    @relation(fields: [playlistId], references: [id], onDelete: Cascade) // Relation 1:1 with Playlist (optional)
 
   @@map("newsletters")
 }
@@ -89,6 +91,15 @@ model Video {
   newsletter   Newsletter @relation(fields: [newsletterId], references: [id], onDelete: Cascade)
 
   @@map("videos")
+}
+
+model Playlist {
+  id         String      @id @default(uuid())
+  title      String? // Playlist title (e.g., "October 2024 Videos")
+  url        String // YouTube playlist URL
+  newsletter Newsletter? // Relation 1:1 with Newsletter (optional)
+
+  @@map("playlists")
 }
 
 model User {

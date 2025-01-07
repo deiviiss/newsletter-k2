@@ -20,7 +20,8 @@ export const getNewsletters = async ({ page = 1, take = 6, grade }: PaginationOp
     take,
     skip: (page - 1) * take,
     include: {
-      topics: true
+      topics: true,
+      playlist: true
     },
     orderBy: {
       month: 'desc'

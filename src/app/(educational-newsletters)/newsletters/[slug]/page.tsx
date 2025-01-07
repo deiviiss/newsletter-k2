@@ -1,6 +1,7 @@
 import { type Metadata, type ResolvingMetadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { IoLogoYoutube } from 'react-icons/io5'
 import { getNewsletterByTitle, getAllNewslettersOrderedByMonth } from '@/actions/newsletter'
 import { Button } from '@/components/ui/button'
 import { convertToGrade } from '@/utils/convertToGrade'
@@ -226,6 +227,22 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
             </ul>
           </div>
         </div>
+
+        {/* YouTube Playlist Button */}
+        <Button
+          variant="default"
+          className={`w-full ${headerColor} text-white`}
+          asChild
+        >
+          <Link
+            href={newsletter.playlist?.url ?? ''}
+            target="_blank"
+            className="flex items-center justify-center gap-2"
+          >
+            <IoLogoYoutube className="w-5 h-5" />
+            Play list
+          </Link>
+        </Button>
       </div>
     </div >
   )

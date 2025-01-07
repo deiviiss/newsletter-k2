@@ -14,7 +14,8 @@ export const getNewsletterByTitle = async (title: string, grade?: Grade) => {
       vocabularies: true,
       videos: true,
       notes: true,
-      socialSkill: true
+      socialSkill: true,
+      playlist: true
     }
   })
 
