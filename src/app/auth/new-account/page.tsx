@@ -10,7 +10,8 @@ export default async function NewAccountPage() {
   }
 
   return (
-    <div className="w-full m-auto sm:max-w-[400px] py-4">      <RegisterForm />
+    <div className="w-full m-auto sm:max-w-[400px] py-4">
+      <RegisterForm />
     </div>
   )
 }

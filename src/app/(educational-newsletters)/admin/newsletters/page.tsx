@@ -132,9 +132,9 @@ export default function NewsletterDashboard({ searchParams }: Props) {
   const paginate = (pageNumber: number) => { setCurrentPage(pageNumber) }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">Newsletter Maintenance</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-300 mb-8 text-center">Newsletter Maintenance</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Total newsletter */}
@@ -220,8 +220,8 @@ export default function NewsletterDashboard({ searchParams }: Props) {
             </div>
 
             {/* Table newsletter */}
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <div className="bg-primary text-white py-3 px-4">
+            <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+              <div className="bg-primary dark:bg-gray-700 text-white py-3 px-4">
                 <h2 className="text-2xl font-semibold">Newsletters Available</h2>
               </div>
               <ul className="divide-y divide-gray-200">
@@ -229,7 +229,7 @@ export default function NewsletterDashboard({ searchParams }: Props) {
                   ? (
                     <p className='text-sm font-medium text-primary truncate px-4 py-4 sm:px-6'>No newsletter found</p>)
                   : (currentItems.map((newsletter) => (
-                    <li key={newsletter.id} className="w-full px-4 py-4 sm:px-6 hover:bg-gray-50 min-[470px]:flex min-[470px]:flex-row-reverse min-[470px]:justify-between min-[475px]:items-center">
+                    <li key={newsletter.id} className="w-full px-4 py-4 sm:px-6 hover:bg-gray-50 dark:hover:bg-gray-500 min-[470px]:flex min-[470px]:flex-row-reverse min-[470px]:justify-between min-[475px]:items-center">
                       <div className="text-end pb-2 sm:pb-0">
                         <Button
                           asChild

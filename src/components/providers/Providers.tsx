@@ -1,6 +1,7 @@
 'use client'
 
 import { SessionProvider } from 'next-auth/react'
+import { ThemeProvider } from '@/components/dark-mode/ThemeProvider'
 
 interface ProviderProps {
   children: React.ReactNode
@@ -8,8 +9,15 @@ interface ProviderProps {
 
 export const Providers = ({ children }: ProviderProps) => {
   return (
-    <SessionProvider>
-      {children}
-    </SessionProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <SessionProvider>
+        {children}
+      </SessionProvider>
+    </ThemeProvider>
   )
 }

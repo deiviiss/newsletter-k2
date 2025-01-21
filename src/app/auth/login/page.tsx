@@ -11,7 +11,7 @@ export default async function LoginPage() {
   }
 
   return (
-    <div className="w-full items-center flex flex-col min-h-screen pt-32 px-2">
+    <div className="w-full items-center flex flex-col min-h-screen pt-32 px-2 dark:bg-gray-800">
 
       <h1 className={`${titleFont.className} text-4xl mb-5`}>Ingresar</h1>
 

@@ -102,9 +102,9 @@ export default function NewsletterListPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">Newsletters {grade}</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-300 mb-8 text-center">Newsletters {grade}</h1>
 
         {loading && (
           <div className="text-center my-10">
@@ -160,8 +160,8 @@ export default function NewsletterListPage({ searchParams }: Props) {
               </Select>
             </div>
 
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <div className="bg-primary text-white py-3 px-4">
+            <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+              <div className="bg-primary dark:bg-gray-700 text-white py-3 px-4">
                 <h2 className="text-2xl font-semibold">Newsletters Available</h2>
               </div>
               <ul className="divide-y divide-gray-200">
@@ -170,7 +170,7 @@ export default function NewsletterListPage({ searchParams }: Props) {
                     <p className='text-sm font-medium text-primary truncate px-4 py-4 sm:px-6'>No newsletter found</p>)
                   : (currentItems.map((newsletter) => (
                     <li key={newsletter.id}>
-                      <Link href={`/newsletters/${newsletter.title}?grade=${newsletter.grade}`} className="block hover:bg-gray-50">
+                      <Link href={`/newsletters/${newsletter.title}?grade=${newsletter.grade}`} className="block hover:bg-gray-50 dark:hover:bg-gray-500">
                         <div className="px-4 py-4 sm:px-6">
                           <div className="flex items-center justify-between">
                             <p className="text-sm font-medium text-primary truncate">
