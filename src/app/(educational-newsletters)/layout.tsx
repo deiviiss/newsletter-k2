@@ -19,7 +19,7 @@ export default function ShopLayout({
       </div>
 
       <ButtonScrollTop
-        className='fixed bottom-10 right-2 md:right-16 z-10 text-black hover:no-underline hover:text-gray-900 text-xl flex gap-1 p-2 rounded-none border-black border bg-white h-12 w-12 print:hidden'
+        className='fixed bottom-10 right-2 md:right-16 z-10 text-black hover:no-underline hover:text-gray-900 text-xl flex gap-1 p-2 rounded-none border-black border bg-secondary dark:bg-primary h-12 w-12 print:hidden'
         icon={<IoArrowUpOutline />}
       />
 
