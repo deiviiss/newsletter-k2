@@ -43,7 +43,8 @@ export const TopMenu = () => {
             <span className="text-xl sm:text-2xl font-bold">Public Bilingual Kinder Garden</span>
           </div>
         </Link>
-        <nav>
+        <nav className='flex items-center space-x-2'>
+          <ToogleDarkMode />
           <Button
             size="lg"
             type="button"
@@ -54,9 +55,6 @@ export const TopMenu = () => {
             <IoMenu size={30} />
           </Button>
           <ul className="hidden space-x-4 md:flex items-center">
-            <li>
-              <ToogleDarkMode />
-            </li>
             <li>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center hover:text-blue-400 transition-colors">
