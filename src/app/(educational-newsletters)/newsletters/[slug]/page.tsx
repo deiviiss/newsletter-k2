@@ -83,13 +83,13 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
   const headerColor = monthColors[monthNumber] || 'bg-blue-300'
 
   return (
-    <div className="min-h-screen bg-gray-100 pt-0 py-11 px-1 md:px-6 sm:pt-8 lg:px-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-0 py-11 md:px-6 sm:pt-8 lg:px-8">
       <div className="max-w-6xl mx-auto  animate-fade-up">
         <div className='flex items-center justify-center mb-11 relative'>
           {previousNewsletter && (
             <Button
               asChild
-              className={`mr-4 p-2 ${headerColor} rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 hover:text-black absolute left-0 -bottom-12`}
+              className={`mr-4 ml-1 p-2 ${headerColor} rounded-full hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-200 hover:text-black absolute left-0 -bottom-12 dark:text-primary`}
               aria-label="Previous Newsletter"
             >
               <Link href={`/newsletters/${previousNewsletter.title}?grade=${newsletter.grade}`}>
@@ -138,7 +138,7 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
 
           {nextNewsletter && (
             <Button asChild
-              className={`ml-4 p-2 ${headerColor} rounded-full hover:bg-gray-300 hover:text-black focus:outline-none focus:ring-2 focus:ring-gray-400 absolute right-0 -bottom-12`}
+              className={`ml-4 mr-1 p-2 ${headerColor} rounded-full hover:bg-gray-300 hover:text-black focus:outline-none focus:ring-1 focus:ring-gray-200 absolute right-0 -bottom-12 dark:text-primary`}
               aria-label="Next Newsletter"
             >
               <Link href={`/newsletters/${nextNewsletter.title}?grade=${newsletter.grade}`}>
@@ -151,9 +151,9 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-12 px-1">
           {/* Vocabulary */}
-          <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
+          <div className="bg-secondary shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
             <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>Vocabulary</h2>
             <div className="p-4">
               {newsletter.vocabularies.map((item, index) => (
@@ -168,22 +168,22 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
           {/* Other Sections */}
           <div className="space-y-8">
             {/* Topics */}
-            <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-12 pt-3 relative">
+            <div className="bg-secondary shadow-lg rounded-t-[50px] rounded-b-[30px] mb-12 pt-3 relative">
               <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>What are we learning?</h2>
               <div className="p-4">
-                <p className="text-lg text-gray-700 px-4">{newsletter.topics.map(topic => (
+                <p className="text-lg text-gray-700 dark:text-gray-100 px-4">{newsletter.topics.map(topic => (
                   <span key={topic.name}>{topic.name}, </span>
                 ))}</p>
               </div>
             </div>
 
             {/* For the parents */}
-            <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
+            <div className="bg-secondary shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
               <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>For the parents</h2>
               <div className="p-4 mb-12">
                 <ul className="list-disc pl-5 space-y-2">
                   {newsletter.notes.map((note, index) => (
-                    <li key={index} className="text-gray-700">{note.content}</li>
+                    <li key={index} className="text-gray-700 dark:text-gray-100">{note.content}</li>
                   ))}
                 </ul>
               </div>
@@ -192,12 +192,12 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
             {/* Social Skill */}
             {
               newsletter.socialSkill && (
-                <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
+                <div className="bg-secondary shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
                   <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>Social Skills</h2>
 
                   <div className="p-4">
-                    <p className="font-medium mb-2 px-4">{newsletter.socialSkill.skill}</p>
-                    <p className="text-gray-700 px-4">{newsletter.socialSkill.activity}</p>
+                    <p className="text-gray-700 dark:text-gray-100 font-medium mb-2 px-4">{newsletter.socialSkill.skill}</p>
+                    <p className="text-gray-700 dark:text-gray-100 px-4">{newsletter.socialSkill.activity}</p>
                   </div>
                 </div>
               )
@@ -206,7 +206,7 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
         </div>
 
         {/* Section Video */}
-        <div className="bg-white shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
+        <div className="bg-secondary shadow-lg rounded-t-[50px] rounded-b-[30px] mb-8 pt-3 relative">
           <h2 className={`text-white py-1 px-6 absolute -top-6 left-3 rounded-t-2xl rounded-b-3xl ${headerColor} text-2xl font-extrabold`}>Links</h2>
 
           <div className="p-4">
