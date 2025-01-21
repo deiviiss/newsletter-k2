@@ -25,7 +25,7 @@ export const Sidebar = () => {
         isSideMenuOpen && (
           <>
             {/* background */}
-            <div className='fixed top-0 left-0 w-screen h-screen z-30 bg-black opacity-30'>
+            <div className='fixed top-0 left-0 w-screen h-screen z-30 bg-primary opacity-10'>
             </div>
             {/* blur */}
             <div onClick={closeMenu} className='fade-in fixed top-0 left-0 w-screen h-screen z-30 backdrop-filter backdrop-blur-sm'>
@@ -36,7 +36,7 @@ export const Sidebar = () => {
 
       <nav className={
         clsx(
-          'fixed p-5 right-0 top-0 w-full md:w-[350px] h-screen bg-white z-40 shadow-2xl transform transition-all duration-300',
+          'fixed p-5 right-0 top-0 w-full md:w-[350px] h-screen bg-secondary dark:bg-gray-950 z-40 shadow-2xl transform transition-all duration-300',
           {
             'translate-x-full': !isSideMenuOpen
           }
@@ -52,7 +52,7 @@ export const Sidebar = () => {
         {/* menú */}
         <div className='mt-16'>
           <Collapsible>
-            <CollapsibleTrigger className='flex items-center w-full mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+            <CollapsibleTrigger className='flex items-center w-full mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
               <IoNewspaperOutline size={30} />
               <span className='ml-3 text-xl'>Newsletters</span>
               <BsChevronDown className="ml-auto h-4 w-4" />
@@ -60,12 +60,12 @@ export const Sidebar = () => {
             <CollapsibleContent>
               <Link href='/newsletters?grade=K2'
                 onClick={() => { closeMenu() }}
-                className='flex items-center mt-2 p-2 pl-12 hover:bg-black hover:text-white rounded-none transition-all'>
+                className='flex items-center mt-2 p-2 pl-12 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                 <span className='text-xl'>K2</span>
               </Link>
               <Link href='/newsletters?grade=K3'
                 onClick={() => { closeMenu() }}
-                className='flex items-center mt-2 p-2 pl-12 hover:bg-black hover:text-white rounded-none transition-all'>
+                className='flex items-center mt-2 p-2 pl-12 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                 <span className='text-xl'>K3</span>
               </Link>
             </CollapsibleContent>
@@ -73,7 +73,7 @@ export const Sidebar = () => {
 
           <Link href='/breakfasts'
             onClick={() => { closeMenu() }}
-            className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+            className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
             <MdOutlineFreeBreakfast size={30} />
             <span className='ml-3 text-xl'>Breakfasts</span>
           </Link>
@@ -83,7 +83,7 @@ export const Sidebar = () => {
               ? (
                 <Link href='/auth/login'
                   onClick={() => { closeMenu() }}
-                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoLogInOutline size={30} />
                   <span className='ml-3 text-xl'>Login</span>
                 </Link>)
@@ -94,7 +94,7 @@ export const Sidebar = () => {
                     closeMenu()
                     window.location.replace('/auth/login')
                   }}
-                  className='flex items-center w-full mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center w-full mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoLogOutOutline size={30} />
                   <span className='ml-3 text-xl'>Logout</span>
                 </button>)
@@ -108,14 +108,14 @@ export const Sidebar = () => {
               <>
                 <Link href='/profile'
                   onClick={() => { closeMenu() }}
-                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoPersonOutline size={30} />
                   <span className='ml-3 text-xl'>Profile</span>
                 </Link>
 
                 <Link href='/admin/newsletters'
                   onClick={() => { closeMenu() }}
-                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoNewspaperOutline size={30} />
                   <span className='ml-3 text-xl'>Newsletters</span>
                 </Link>
@@ -128,28 +128,28 @@ export const Sidebar = () => {
               <>
                 <Link href='/profile'
                   onClick={() => { closeMenu() }}
-                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoPersonOutline size={30} />
                   <span className='ml-3 text-xl'>Profile</span>
                 </Link>
 
                 <Link href='/admin/newsletters'
                   onClick={() => { closeMenu() }}
-                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoNewspaperOutline size={30} />
                   <span className='ml-3 text-xl'>Newsletters</span>
                 </Link>
 
                 <Link href='/admin/breakfasts'
                   onClick={() => { closeMenu() }}
-                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <MdOutlineFreeBreakfast size={30} />
                   <span className='ml-3 text-xl'>Breakfasts</span>
                 </Link>
 
                 <Link href='/admin/users'
                   onClick={() => { closeMenu() }}
-                  className='flex items-center mt-7 p-2 hover:bg-black hover:text-white rounded-none transition-all'>
+                  className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoPeopleOutline size={30} />
                   <span className='ml-3 text-xl'>Users</span>
                 </Link>

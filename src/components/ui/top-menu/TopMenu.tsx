@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { IoChevronDown, IoMenu } from 'react-icons/io5'
 import { Button } from '../button'
+import { ToogleDarkMode } from '@/components/dark-mode/toogle-dark-mode/ToogleDarkMode'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { titleFont } from '@/config/fonts'
 import { useUiStore } from '@/store'
@@ -17,12 +18,12 @@ export const TopMenu = () => {
   const isAuthenticated = !!session?.user
 
   const [bgColor, setBgColor] = useState('bg-none')
-  const fixedScrollThreshold = 0.5 // 1% scroll threshold
+  const fixedScrollThreshold = 0.1 // 1% scroll threshold
 
   const handleScroll = () => {
     // calculate the vertical scroll percentage
     const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-    setBgColor(scrolled > fixedScrollThreshold ? 'bg-white' : 'bg-none') // change the background color if the percentage is greater than the fixed value
+    setBgColor(scrolled > fixedScrollThreshold ? 'bg-white dark:bg-gray-950' : 'bg-none') // change the background color if the percentage is greater than the fixed value
   }
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export const TopMenu = () => {
   }, [])
 
   return (
-    <div className={`fixed-menu w-full fixed top-0 z-20 text-black ${bgColor} transition-colors duration-300`}>
+    <div className={`fixed-menu w-full fixed top-0 z-20 ${bgColor} transition-all duration-500`}>
       <header className="container mx-auto lg:px-20 px-4 py-2 flex justify-between items-center">
         <Link href={'/'}>
           <div className="flex items-center space-x-2">
@@ -52,7 +53,10 @@ export const TopMenu = () => {
           >
             <IoMenu size={30} />
           </Button>
-          <ul className="hidden space-x-4 md:flex">
+          <ul className="hidden space-x-4 md:flex items-center">
+            <li>
+              <ToogleDarkMode />
+            </li>
             <li>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center hover:text-blue-400 transition-colors">

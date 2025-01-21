@@ -23,14 +23,14 @@ export const LoginForm = () => {
 
       <label htmlFor="email">Correo electrónico</label>
       <input
-        className="px-5 py-2 border bg-gray-200 rounded mb-5"
+        className="px-5 py-2 border  rounded mb-5"
         type="email"
         name='email'
       />
 
       <label htmlFor="password">Contraseña</label>
       <input
-        className="px-5 py-2 border bg-gray-200 rounded mb-5"
+        className="px-5 py-2 border rounded mb-5"
         type="password"
         name='password' />
 

@@ -19,9 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <Providers>
-        <body className={textFont.className}>{children}</body>
-      </Providers >
+      <body className={textFont.className}>
+        <Providers>
+          {children}
+        </Providers >
+      </body>
     </html >
   )
 }
