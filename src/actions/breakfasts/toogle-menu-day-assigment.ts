@@ -18,7 +18,9 @@ export const toggleMenuDay = async (menuId: string, dayId: string | null) => {
         data: { weekdayId: null, isActive: false }
       })
 
+      revalidatePath('/')
       revalidatePath('/admin/breakfasts')
+      revalidatePath(`/breakfasts/${menuId}`)
       return { ok: true, message: 'Day unassigned successfully' }
     }
 
@@ -28,7 +30,9 @@ export const toggleMenuDay = async (menuId: string, dayId: string | null) => {
       data: { weekdayId: dayId, isActive: true }
     })
 
+    revalidatePath('/')
     revalidatePath('/admin/breakfasts')
+    revalidatePath(`/breakfasts/${menuId}`)
     return { ok: true, message: 'Day assigned successfully' }
   } catch (error) {
     return { ok: false, message: 'Failed to toggle menu day' }
