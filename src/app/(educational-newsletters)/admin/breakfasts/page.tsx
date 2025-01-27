@@ -33,7 +33,7 @@ export default function BreakfastPage() {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
-  const itemsPerPage = 7
+  const itemsPerPage = 6
 
   useEffect(() => {
     fetchAvailableDays()

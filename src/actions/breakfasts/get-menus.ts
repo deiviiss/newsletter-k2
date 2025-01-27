@@ -10,8 +10,6 @@ interface PaginationOptions {
 
 export const getMenus = async ({ page = 1, take = 6 }: PaginationOptions) => {
   const menus = await prisma.menu.findMany({
-    take,
-    skip: (page - 1) * take,
     include: {
       ingredients: true,
       weekday: true,
