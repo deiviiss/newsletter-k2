@@ -8,7 +8,7 @@ export default function ShopLayout({
   children: React.ReactNode
 }>) {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
+    <main className="min-h-screen bg-secondary dark:bg-gray-800">
       <NextProgress />
       <TopMenu />
 

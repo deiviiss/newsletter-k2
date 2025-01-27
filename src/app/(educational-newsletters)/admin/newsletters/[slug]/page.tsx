@@ -14,9 +14,11 @@ interface Props {
 
 export default async function NewsLetterPage({ params, searchParams }: Props) {
   const { slug } = params
+
   const grade = convertToGrade(searchParams.grade)
 
   const decodedTitle = decodeURIComponent(slug)
+
   const { newsletter } = await getNewsletterByTitle(decodedTitle, grade)
 
   if (!newsletter && slug !== 'create') {

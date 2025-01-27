@@ -55,6 +55,7 @@ export const TopMenu = () => {
             <IoMenu size={30} />
           </Button>
           <ul className="hidden space-x-4 md:flex items-center">
+            <li><Link href="/" className="hover:text-blue-400 transition-colors">Home</Link></li>
             <li>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center hover:text-blue-400 transition-colors">
@@ -70,7 +71,6 @@ export const TopMenu = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
-            <li><Link href="/breakfasts" className="hover:text-blue-400 transition-colors">Breakfasts</Link></li>
             {
               !isAuthenticated
                 ? (
