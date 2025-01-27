@@ -395,7 +395,7 @@ export default function BreakfastPage() {
                         }
                       </div>
 
-                      <Link href={`/breakfasts/${menuItem.title}`}>
+                      <Link href={`/breakfasts/${menuItem.id}`}>
                         <div className="flex items-center justify-between">
                           <p className="text-sm font-medium text-primary truncate">
                             {menuItem.title}
