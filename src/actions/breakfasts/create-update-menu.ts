@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { getUserSessionServer } from '../auth/getUserSessionServer'
 import prisma from '@/lib/prisma'
@@ -124,6 +125,13 @@ export const createUpdateMenu = async (formData: FormData) => {
         }
       }
     })
+
+    if (id) {
+      revalidatePath(`/breakfasts/${id}`)
+    }
+
+    revalidatePath('/')
+    revalidatePath('/admin/breakfasts')
 
     return {
       ok: true,
