@@ -112,3 +112,54 @@ model User {
 
   @@map("users")
 }
+
+model Menu {
+  id          String  @id @default(uuid())
+  title       String
+  preparation String
+  isActive    Boolean @default(false)
+
+  menuImageId String    @unique
+  menuImage   MenuImage @relation(fields: [menuImageId], references: [id], onDelete: Cascade)
+
+  ingredients Ingredient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  weekdayId String?  @unique
+  weekday   Weekday? @relation(fields: [weekdayId], references: [id])
+
+  @@map("menus")
+}
+
+model MenuImage {
+  id  String @id @default(uuid())
+  url String
+
+  menu Menu?
+
+  @@map("menu_images")
+}
+
+model Weekday {
+  id    String @id @default(uuid())
+  name  String @unique // monday, tuesday, wednesday, thursday, friday
+  order Int
+  menu  Menu?
+
+  @@map("weekdays")
+}
+
+model Ingredient {
+  id       String @id @default(uuid())
+  name     String
+  quantity String
+  calories Float
+  protein  Float
+  lipids   Float
+  carbs    Float
+  menuId   String
+  menu     Menu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
+
+  @@map("ingredients")
+}

@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { BsChevronDown } from 'react-icons/bs'
-import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoNewspaperOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5'
+import { IoCloseOutline, IoHome, IoLogInOutline, IoLogOutOutline, IoNewspaperOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5'
 import { MdOutlineFreeBreakfast } from 'react-icons/md'
 import { logout } from '@/actions'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -51,6 +51,13 @@ export const Sidebar = () => {
 
         {/* menú */}
         <div className='mt-16'>
+          <Link href='/'
+            onClick={() => { closeMenu() }}
+            className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
+            <IoHome size={30} />
+            <span className='ml-3 text-xl'>Home</span>
+          </Link>
+
           <Collapsible>
             <CollapsibleTrigger className='flex items-center w-full mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
               <IoNewspaperOutline size={30} />
@@ -70,13 +77,6 @@ export const Sidebar = () => {
               </Link>
             </CollapsibleContent>
           </Collapsible>
-
-          <Link href='/breakfasts'
-            onClick={() => { closeMenu() }}
-            className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
-            <MdOutlineFreeBreakfast size={30} />
-            <span className='ml-3 text-xl'>Breakfasts</span>
-          </Link>
 
           {
             !isAuthenticated
