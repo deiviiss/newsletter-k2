@@ -254,6 +254,9 @@ export const FormBreakfasts = ({ breakfast }: BreakfastFormProps) => {
                         <FormLabel>Calories</FormLabel>
                         <FormControl>
                           <Input {...field}
+                            type="number"
+                            min={0}
+                            step="0.01"
                             onChange={(e) => { field.onChange(e.target.value === '' ? 0 : parseFloat(e.target.value)) }}
                           />
                         </FormControl>
@@ -269,6 +272,9 @@ export const FormBreakfasts = ({ breakfast }: BreakfastFormProps) => {
                         <FormLabel>Protein</FormLabel>
                         <FormControl>
                           <Input {...field}
+                            type="number"
+                            min={0}
+                            step="0.01"
                             onChange={(e) => { field.onChange(e.target.value === '' ? 0 : parseFloat(e.target.value)) }}
                           />
                         </FormControl>
@@ -284,6 +290,9 @@ export const FormBreakfasts = ({ breakfast }: BreakfastFormProps) => {
                         <FormLabel>Lipids</FormLabel>
                         <FormControl>
                           <Input {...field}
+                            type="number"
+                            min={0}
+                            step="0.01"
                             onChange={(e) => { field.onChange(e.target.value === '' ? 0 : parseFloat(e.target.value)) }}
                           />
                         </FormControl>
@@ -299,6 +308,9 @@ export const FormBreakfasts = ({ breakfast }: BreakfastFormProps) => {
                         <FormLabel>Carbs</FormLabel>
                         <FormControl>
                           <Input {...field}
+                            type="number"
+                            min={0}
+                            step="0.01"
                             onChange={(e) => { field.onChange(e.target.value === '' ? 0 : parseFloat(e.target.value)) }}
                           />
                         </FormControl>

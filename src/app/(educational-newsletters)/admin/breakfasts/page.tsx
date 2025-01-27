@@ -33,7 +33,7 @@ export default function BreakfastPage() {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
-  const itemsPerPage = 10
+  const itemsPerPage = 7
 
   useEffect(() => {
     fetchAvailableDays()
@@ -296,7 +296,7 @@ export default function BreakfastPage() {
                                                 ))}
                                               </select>
                                             </div>
-                                            <DialogFooter className="space-x-2">
+                                            <DialogFooter className="gap-y-2">
                                               <DialogClose asChild>
                                                 <Button type="button" variant="secondary">
                                                   Cancel
