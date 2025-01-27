@@ -13,10 +13,6 @@ export default async function LandingPage() {
   const { newsletters: newslettersK3 } = await getNewsletters({ page: 1, take: 2, grade: 'K3' })
   const { weeklyMenu } = await getWeeklyMenu()
 
-  if (!weeklyMenu || weeklyMenu.length === 0) {
-    return <div>No menu found</div>
-  }
-
   if (!newslettersK2 && !newslettersK3) {
     return <div>No newsletters found</div>
   }
@@ -32,7 +28,7 @@ export default async function LandingPage() {
         </section>
 
         {
-          weeklyMenu && (
+          weeklyMenu && weeklyMenu.length !== 0 && (
             <div className="py-12 w-full">
               <h2 className="text-3xl font-bold text-center mb-8">Weekly Breakfast Menu</h2>
               <MenuCarousel menuItems={weeklyMenu} />
