@@ -15,11 +15,16 @@ export const getMenus = async ({ page = 1, take = 6 }: PaginationOptions) => {
       weekday: true,
       menuImage: true
     },
-    orderBy: {
-      weekday: {
-        order: 'asc'
+    orderBy: [
+      {
+        weekday: {
+          order: 'asc'
+        }
+      },
+      {
+        createdAt: 'asc'
       }
-    }
+    ]
   })
 
   if (!menus) {

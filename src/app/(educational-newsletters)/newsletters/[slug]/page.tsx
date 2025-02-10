@@ -112,11 +112,11 @@ export default async function NewsletterPage({ params, searchParams }: Props) {
 
               <div className="mx-auto w-full max-w-[720px] relative bg-green-500">
                 {/* Left circle with K3 */}
-                <div className="border border-white text-white w-20 h-20 rounded-full flex items-center justify-center font-bold text-3xl absolute -bottom-14 -left-5">
+                <div className="border border-white text-white w-20 h-20 rounded-full flex items-center justify-center font-bold text-3xl absolute -bottom-20 sm:-bottom-14 -left-5">
                   {newsletter.grade}
                 </div>
                 {/* Right date bubble */}
-                <div className="border border-white text-white px-4 py-2 rounded-2xl font-bold absolute -bottom-14 -right-5">
+                <div className="border border-white text-white px-4 py-2 rounded-2xl font-bold absolute -bottom-20 sm:-bottom-14 -right-5">
                   <div className="text-2xl leading-tight">{newsletter.month.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })}</div>
                   <div className="text-xl"> {newsletter.month.toLocaleDateString('en-US', { year: 'numeric', timeZone: 'UTC' })}</div>
                 </div>

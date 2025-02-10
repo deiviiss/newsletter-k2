@@ -33,19 +33,44 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
   }
 
   return (
-    <div className="relative w-full mx-auto">
+    <div className="w-full mx-auto">
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-center capitalize">{menuItems[currentIndex]?.weekday?.name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <MenuImage
-            src={menuItems[currentIndex]?.menuImage?.url || '/images/placeholder.svg'}
-            alt={menuItems[currentIndex]?.title}
-            width={500}
-            height={600}
-            className="w-full h-48 object-cover mb-4 rounded-md"
-          />
+          <div className='relative'>
+            <MenuImage
+              src={menuItems[currentIndex]?.menuImage?.url || '/images/placeholder.svg'}
+              alt={menuItems[currentIndex]?.title}
+              width={581}
+              height={789}
+              className="w-full max-h-96 object-contain mb-4 rounded-md"
+            />
+
+            {
+              menuItems.length > 1 && (
+                <>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="absolute top-1/2 -left-3 transform -translate-y-1/2"
+                    onClick={prevSlide}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="absolute top-1/2 -right-3 transform -translate-y-1/2"
+                    onClick={nextSlide}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </>
+              )
+            }
+          </div>
           <h3 className="text-xl font-bold mb-2">{menuItems[currentIndex]?.title}</h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4">{menuItems[currentIndex]?.ingredients?.map(item => item.name).join(', ') + '.'}</p>
           <Button
@@ -59,29 +84,6 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
           </Button>
         </CardContent>
       </Card>
-      {
-        menuItems.length > 1 && (
-          <>
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute top-1/2 left-4 transform -translate-y-1/2"
-              onClick={prevSlide}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute top-1/2 right-4 transform -translate-y-1/2"
-              onClick={nextSlide}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </>
-        )
-      }
-
     </div>
   )
 }

@@ -51,9 +51,10 @@ export const MenuImage = ({
         alt={alt}
         width={width}
         height={height}
-        sizes="(max-width: 768px) 100vw, 500px"
+        fill
+        // sizes="(max-width: 768px) 100vw, 500px"
         priority
-        className={`${className}`}
+        className={`${className} object-cover`}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       />)

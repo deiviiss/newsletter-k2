@@ -5,7 +5,8 @@
     "hookform",
     "mercadopago",
     "paypal",
-    "rollingback"
+    "rollingback",
+    "Youtube"
   ],
   "editor.codeActionsOnSave": {}
 }
