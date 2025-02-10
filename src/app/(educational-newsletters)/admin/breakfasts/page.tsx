@@ -76,6 +76,7 @@ export default function BreakfastPage() {
 
       setMenuItems(menus)
       setFilteredMenuItems(menus)
+      console.log(menus)
     } catch (error) {
       setError('An error occurred while loading the MenuItems. Please try again later.')
     } finally {

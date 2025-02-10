@@ -29,7 +29,7 @@ export default async function BreakfastsDetails({ params }: { params: { id: stri
                 variant="outline"
                 size="icon"
                 asChild
-                className="absolute top-1/2 left-4 transform -translate-y-1/2"
+                className="absolute bottom-1 left-"
               >
                 <Link href={`/breakfasts/${previousMenu.id}`} >
                   <ChevronLeft className="h-4 w-4" />
@@ -40,7 +40,7 @@ export default async function BreakfastsDetails({ params }: { params: { id: stri
               <Button
                 variant="outline"
                 size="icon"
-                className="absolute top-1/2 right-4 transform -translate-y-1/2"
+                className="absolute bottom-1 right-4"
                 asChild
               >
                 <Link href={`/breakfasts/${nextMenu.id}`} >
@@ -56,9 +56,9 @@ export default async function BreakfastsDetails({ params }: { params: { id: stri
           <MenuImage
             src={menu?.menuImage.url || '/placeholder.svg'}
             alt={menu?.title ?? ''}
-            width={400}
-            height={300}
-            className="w-full h-64 object-cover mb-6 rounded-lg"
+            width={581}
+            height={789}
+            className="w-full max-h-96 object-contain mb-6 rounded-lg"
           />
           <div className='overflow-auto'>
             <table className="w-full mb-6 overflow-hidden">
