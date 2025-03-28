@@ -17,7 +17,12 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
 
   useEffect(() => {
     const today = new Date().getDay() - 1
-    setCurrentIndex(today >= 0 && today < 5 ? today : 0)
+
+    const initialIndex = today >= 0 && today < 5 && menuItems[today]
+      ? today
+      : menuItems.findIndex(item => item !== undefined)
+
+    setCurrentIndex(initialIndex >= 0 ? initialIndex : 0)
   }, [])
 
   const nextSlide = () => {
