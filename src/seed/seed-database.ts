@@ -1,10 +1,10 @@
-// import { initialData } from './seed'
+import { initialData } from './seed'
 import prisma from '../lib/prisma'
 
 const main = async () => {
   // Delete existing data
-  await prisma.menu.deleteMany({})
-  await prisma.menuImage.deleteMany({})
+  // await prisma.menu.deleteMany({})
+  // await prisma.menuImage.deleteMany({})
   //   await prisma.user.deleteMany()
   //   await prisma.vocabulary.deleteMany()
   //   await prisma.topic.deleteMany()
@@ -13,12 +13,12 @@ const main = async () => {
   //   await prisma.socialSkill.deleteMany()
   //   await prisma.newsletter.deleteMany()
 
-  //   const { users, newsletters } = initialData
+  const { users } = initialData
 
-  //   // Create users
-  //   await prisma.user.createMany({
-  //     data: users
-  //   })
+  // Create users
+  await prisma.user.createMany({
+    data: users
+  })
 
   //   // Create newsletters
   //   for (const newsletter of newsletters) {

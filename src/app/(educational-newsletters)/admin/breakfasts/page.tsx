@@ -4,12 +4,14 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect, type ChangeEvent } from 'react'
-import { IoAdd, IoTrash, IoPencil, IoCheckbox } from 'react-icons/io5'
+import { IoTrash, IoPencil, IoCheckbox, IoAdd } from 'react-icons/io5'
 import { toast } from 'sonner'
+import { assignMenus } from '@/actions/breakfasts/assigment-menu'
 import { getAvailableDays } from '@/actions/breakfasts/available-days'
 import { deleteMenuById } from '@/actions/breakfasts/delete-menu-by-id'
 import { getMenus } from '@/actions/breakfasts/get-menus'
 import { toggleMenuDay } from '@/actions/breakfasts/toogle-menu-day-assigment'
+import AssignmentModal from '@/components/holidays/AssigmentModal'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -34,6 +36,27 @@ export default function BreakfastPage() {
   const [error, setError] = useState<string | null>(null)
 
   const itemsPerPage = 6
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleAssignment = async (date: string) => {
+    const { ok, message } = await assignMenus({ startDate: new Date(date) })
+
+    if (!ok) {
+      toast.error(message, {
+        position: 'top-right',
+        duration: 2000
+      })
+    }
+
+    toast.success(message, {
+      position: 'top-right',
+      duration: 2000
+    })
+
+    setIsModalOpen(false)
+    fetchMenuItems()
+  }
 
   useEffect(() => {
     fetchAvailableDays()
@@ -76,7 +99,6 @@ export default function BreakfastPage() {
 
       setMenuItems(menus)
       setFilteredMenuItems(menus)
-      console.log(menus)
     } catch (error) {
       setError('An error occurred while loading the MenuItems. Please try again later.')
     } finally {
@@ -190,7 +212,8 @@ export default function BreakfastPage() {
             <CardHeader>
               <CardTitle>Actions</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col gap-2">
+
               <Button
                 asChild
                 className="w-full flex"
@@ -200,17 +223,20 @@ export default function BreakfastPage() {
                   Create Menu
                 </Link>
               </Button>
+
+              <AssignmentModal
+                handleAssignment={handleAssignment}
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+              />
             </CardContent>
           </Card>
         </div>
 
         {loading && (
-          <div className="text-center my-10">
-            <svg className="animate-spin h-8 w-8 text-primary mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-            </svg>
-            <p className="mt-4 text-lg text-gray-700">Loading menu items...</p>
+          <div className="flex flex-col items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-500"></div>
+            <p className="mt-4 text-lg text-gray-700">Loading breakfasts...</p>
           </div>
         )}
 

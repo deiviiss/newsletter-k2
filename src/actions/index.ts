@@ -10,3 +10,6 @@ export { getPaginatedUsers } from './users/get-paginated-users'
 export { getUserById } from './users/get-user-by-id'
 export { updateUser } from './users/update-user'
 export { getEmailAdmin } from './users/get-email-admin'
+
+// holidays
+export { getHolidays, getHolidaysByMonth, getHolidaysByDateRange } from './holidays/get-holidays'

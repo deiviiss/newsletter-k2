@@ -1,7 +1,7 @@
 import { type Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { IoPencil, IoNewspaper, IoCafe, IoPeopleOutline } from 'react-icons/io5'
+import { IoPencil, IoNewspaper, IoCafe, IoPeopleOutline, IoCalendar } from 'react-icons/io5'
 import { getUserById, getUserSessionServer, validateUserAdmin } from '@/actions'
 import { ButtonLogout } from '@/components'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -78,6 +78,12 @@ const ProfilePage = async () => {
                   <Link href="/admin/breakfasts">
                     <IoCafe />
                     <span>Manage Breakfast</span>
+                  </Link>
+                </Button>
+                <Button asChild variant='outline' size='sm' className='w-full gap-2'>
+                  <Link href="/holidays">
+                    <IoCalendar />
+                    <span>Manage Holidays</span>
                   </Link>
                 </Button>
                 <Button asChild variant='outline' size='sm' className='w-full gap-2'>

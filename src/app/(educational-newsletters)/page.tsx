@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import { IoLogoYoutube, IoArrowForward } from 'react-icons/io5'
+import { getHolidays } from '@/actions'
 import { getWeeklyMenu } from '@/actions/breakfasts/get-weekly-menu'
 import { getNewsletters } from '@/actions/newsletter/get-newsletters'
+import { NextHoliday } from '@/components/holidays/NextHoliday'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import MenuCarousel from '@/components/ui/menu-carousel/MenuCarousel'
@@ -12,6 +14,7 @@ export default async function LandingPage() {
   const { newsletters: newslettersK2 } = await getNewsletters({ page: 1, take: 2, grade: 'K2' })
   const { newsletters: newslettersK3 } = await getNewsletters({ page: 1, take: 2, grade: 'K3' })
   const { weeklyMenu } = await getWeeklyMenu()
+  const holidays = await getHolidays()
 
   if (!newslettersK2 && !newslettersK3) {
     return <div>No newsletters found</div>
@@ -27,6 +30,11 @@ export default async function LandingPage() {
           </p>
         </section>
 
+        <div className="py-12 w-full">
+          <h2 className="text-3xl font-bold text-center mb-8">Next Holiday</h2>
+
+          <NextHoliday holidays={holidays} />
+        </div>
         {
           weeklyMenu && weeklyMenu.length !== 0 && (
             <div className="py-12 w-full">

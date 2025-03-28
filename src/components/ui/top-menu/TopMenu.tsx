@@ -71,6 +71,7 @@ export const TopMenu = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
+            <li><Link href="/holidays" className="hover:text-blue-400 transition-colors">Holidays</Link></li>
             {
               !isAuthenticated
                 ? (

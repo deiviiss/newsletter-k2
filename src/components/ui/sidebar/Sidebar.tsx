@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { BsChevronDown } from 'react-icons/bs'
-import { IoCloseOutline, IoHome, IoLogInOutline, IoLogOutOutline, IoNewspaperOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5'
+import { IoCalendar, IoCloseOutline, IoHome, IoLogInOutline, IoLogOutOutline, IoNewspaperOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5'
 import { MdOutlineFreeBreakfast } from 'react-icons/md'
 import { logout } from '@/actions'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -56,6 +56,13 @@ export const Sidebar = () => {
             className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
             <IoHome size={30} />
             <span className='ml-3 text-xl'>Home</span>
+          </Link>
+
+          <Link href='/holidays'
+            onClick={() => { closeMenu() }}
+            className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
+            <IoCalendar size={30} />
+            <span className='ml-3 text-xl'>Holidays</span>
           </Link>
 
           <Collapsible>
