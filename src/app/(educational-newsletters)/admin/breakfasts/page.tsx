@@ -10,6 +10,7 @@ import { assignMenus } from '@/actions/breakfasts/assigment-menu'
 import { getAvailableDays } from '@/actions/breakfasts/available-days'
 import { deleteMenuById } from '@/actions/breakfasts/delete-menu-by-id'
 import { getMenus } from '@/actions/breakfasts/get-menus'
+import { getSchoolCycleDates } from '@/actions/breakfasts/get-school-cycle'
 import { toggleMenuDay } from '@/actions/breakfasts/toogle-menu-day-assigment'
 import AssignmentModal from '@/components/holidays/AssigmentModal'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
@@ -28,6 +29,8 @@ export default function BreakfastPage() {
   const [selectedDay, setSelectedDay] = useState<string | null>(null)
   const [menuItems, setMenuItems] = useState<WeeklyMenuItem[]>([])
   const [totalActiveMenus, setTotalActiveMenus] = useState<number>(0)
+  const [cycleStartDate, setCycleStartDate] = useState<Date | null>(null)
+  const [cycleEndDate, setCycleEndDate] = useState<Date | null>(null)
 
   const [filteredMenuItems, setFilteredMenuItems] = useState<WeeklyMenuItem[]>([])
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -61,6 +64,7 @@ export default function BreakfastPage() {
   useEffect(() => {
     fetchAvailableDays()
     fetchMenuItems()
+    fetchSchoolCycleDates()
   }, [])
 
   useEffect(() => {
@@ -69,6 +73,21 @@ export default function BreakfastPage() {
 
     setTotalActiveMenus(activeMenus)
   }, [menuItems])
+
+  const fetchSchoolCycleDates = async () => {
+    const { ok, startDate, endDate } = await getSchoolCycleDates()
+
+    if (!ok) {
+      setCycleStartDate(null)
+      setCycleEndDate(null)
+      return
+    }
+
+    if (startDate && endDate) {
+      setCycleStartDate(new Date(startDate))
+      setCycleEndDate(new Date(endDate))
+    }
+  }
 
   const fetchAvailableDays = async () => {
     try {
@@ -228,6 +247,8 @@ export default function BreakfastPage() {
                 handleAssignment={handleAssignment}
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
+                cycleStartDate={cycleStartDate}
+                cycleEndDate={cycleEndDate}
               />
             </CardContent>
           </Card>

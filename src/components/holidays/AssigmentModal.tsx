@@ -24,9 +24,11 @@ interface ModalProps {
   handleAssignment: (date: string) => Promise<void>
   isModalOpen: boolean
   setIsModalOpen: (open: boolean) => void
+  cycleStartDate: Date | null
+  cycleEndDate: Date | null
 }
 
-const AssignmentModal = ({ handleAssignment, isModalOpen, setIsModalOpen }: ModalProps) => {
+const AssignmentModal = ({ handleAssignment, isModalOpen, setIsModalOpen, cycleStartDate, cycleEndDate }: ModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [openPopover, setOpenPopover] = useState(false)
 
@@ -110,9 +112,14 @@ const AssignmentModal = ({ handleAssignment, isModalOpen, setIsModalOpen }: Moda
                             field.onChange(newValue)
                             setOpenPopover(false)
                           }}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date('1900-01-01')
-                          }
+                          disabled={(date) => {
+                            // If there are no school cycle dates, disable all dates
+                            if (!cycleStartDate || !cycleEndDate) {
+                              return true // Disable all dates if there are no school cycle dates
+                            }
+                            // Only allows dates within the school cycle range
+                            return date < cycleStartDate || date > cycleEndDate
+                          }}
                           initialFocus
                         />
                       </PopoverContent>
