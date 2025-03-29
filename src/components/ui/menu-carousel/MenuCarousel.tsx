@@ -59,7 +59,7 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="absolute top-1/2 -left-3 transform -translate-y-1/2"
+                    className="absolute top-1/2 -left-5 transform -translate-y-1/2"
                     onClick={prevSlide}
                   >
                     <ChevronLeft className="h-4 w-4" />
@@ -67,7 +67,7 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="absolute top-1/2 -right-3 transform -translate-y-1/2"
+                    className="absolute top-1/2 -right-5 transform -translate-y-1/2"
                     onClick={nextSlide}
                   >
                     <ChevronRight className="h-4 w-4" />

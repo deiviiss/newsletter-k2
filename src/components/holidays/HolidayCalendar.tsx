@@ -51,7 +51,7 @@ export const HolidayCalendar = ({ initialHolidays }: HolidayCalendarProps) => {
 
   return (
     <div className="w-full space-y-6">
-      <div className="flex items-end justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
         <NextHoliday holidays={holidays} />
 
         <div className="w-48">
@@ -95,11 +95,11 @@ export const HolidayCalendar = ({ initialHolidays }: HolidayCalendarProps) => {
                   {holidays.map((holiday) => (
                     <li key={holiday.id} className="block hover:bg-gray-50 dark:hover:bg-gray-500">
                       <div className="px-4 py-4 sm:px-6">
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col items-start sm:flex-row sm:items-center sm:justify-between">
                           <p className="text-sm font-medium text-primary truncate">
                             {holiday.name}
                           </p>
-                          <div className="ml-2 flex-shrink-0 flex">
+                          <div className="sm:ml-2 flex-shrink-0 flex">
                             <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                               {new Date(holiday.date).toLocaleDateString('en-US', {
                                 weekday: 'long',

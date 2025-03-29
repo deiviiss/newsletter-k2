@@ -4,17 +4,30 @@ import { type Holiday } from '@/interfaces/holidays/holiday.interface'
 import prisma from '@/lib/prisma'
 
 export const getHolidays = async (): Promise<Holiday[]> => {
+  const currentDate = new Date()
+  currentDate.setHours(0, 0, 0, 0)
+
   try {
-    const holidays = await prisma.holiday.findMany({
-      orderBy: {
-        date: 'asc'
-      }
-    })
+    // const holidays = await prisma.holiday.findMany({
+    //   orderBy: [
+    //     {
+    //       date: 'asc'
+    //     }
+    //   ]
+    // })
+
+    const holidays = await prisma.$queryRaw<Holiday[]>`
+      SELECT *
+      FROM "holidays"
+      ORDER BY
+        CASE WHEN date >= ${currentDate} THEN 0 ELSE 1 END,
+        date ASC;
+    `
 
     return holidays
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Error al obtener los días festivos:', error)
+    console.error('Error getting holidays:', error)
     return []
   }
 }
@@ -37,7 +50,7 @@ export const getHolidaysByMonth = async (month: number): Promise<Holiday[]> => {
     return holidays
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Error al obtener los días festivos por mes:', error)
+    console.error('Error getting holidays by month:', error)
     return []
   }
 }
@@ -60,7 +73,7 @@ export const getHolidaysByDateRange = async (startDate: Date, endDate: Date): Pr
     return holidays
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Error al obtener los días festivos por rango de fechas:', error)
+    console.error('Error getting holidays by date range:', error)
     return []
   }
 }

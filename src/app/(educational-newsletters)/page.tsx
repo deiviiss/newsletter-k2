@@ -21,7 +21,7 @@ export default async function LandingPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-gray-100 dark:bg-gray-800 py-12 px-1 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto animate-fade-up">
         <section className="text-center mb-12 animate-fade-up">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">Welcome to Our Kindergarten Learning and Information Hub</h1>

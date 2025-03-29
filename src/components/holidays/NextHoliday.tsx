@@ -1,4 +1,5 @@
 import { ClockIcon } from 'lucide-react'
+import Link from 'next/link'
 import { type Holiday } from '@/interfaces/holidays/holiday.interface'
 
 interface NextHolidayProps {
@@ -12,7 +13,7 @@ export const NextHoliday = ({ holidays }: NextHolidayProps) => {
     .shift()
 
   return (
-    <div className="p-4 bg-blue-100 dark:bg-blue-800 rounded-md shadow-md flex items-center gap-4" >
+    <Link href={'/holidays'} className="p-4 bg-blue-100 dark:bg-blue-800 rounded-md shadow-md flex items-center gap-4" >
       <ClockIcon className="w-8 h-8 text-blue-600 dark:text-blue-300" />
       <div>
         <h2 className="text-xl font-semibold" > {nextHoliday ? nextHoliday.name : 'There are no holidays scheduled for this period'} </h2>
@@ -23,6 +24,6 @@ export const NextHoliday = ({ holidays }: NextHolidayProps) => {
             </p>
           )}
       </div>
-    </div>
+    </Link>
   )
 }
