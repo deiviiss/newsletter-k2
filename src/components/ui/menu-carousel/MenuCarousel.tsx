@@ -43,12 +43,12 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
         <CardHeader>
           <CardTitle className="text-center capitalize">{menuItems[currentIndex]?.weekday?.name}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className=''>
           <div className='relative'>
             <MenuImage
               src={menuItems[currentIndex]?.menuImage?.url || '/images/placeholder.svg'}
               alt={menuItems[currentIndex]?.title}
-              width={581}
+              width={789}
               height={789}
               className="w-full max-h-96 object-contain mb-4 rounded-md"
             />
@@ -59,7 +59,7 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="absolute top-1/2 -left-5 transform -translate-y-1/2"
+                    className="absolute top-1/2 -left-5 md:left-40 transform -translate-y-1/2"
                     onClick={prevSlide}
                   >
                     <ChevronLeft className="h-4 w-4" />
@@ -67,7 +67,7 @@ export default function MenuCarousel({ menuItems }: WeeklyMenuProps) {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="absolute top-1/2 -right-5 transform -translate-y-1/2"
+                    className="absolute top-1/2 -right-5 md:right-40 transform -translate-y-1/2"
                     onClick={nextSlide}
                   >
                     <ChevronRight className="h-4 w-4" />
