@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect, type ChangeEvent, use } from 'react'
+import { useState, useEffect, type ChangeEvent } from 'react'
 import { getNewsletters } from '@/actions/newsletter/get-newsletters'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,13 +15,14 @@ interface Newsletter {
   grade: Grade
 }
 
-type SearchParams = Promise<Record<string, string | string[] | undefined>>
+interface Props {
+  searchParams: {
+    grade?: Grade
+  }
+}
 
-export default async function NewsletterListPage(props: {
-  searchParams: SearchParams
-}) {
-  const searchParams = use(props.searchParams)
-  const grade = searchParams.grade as Grade || 'K2'
+export default async function NewsletterListPage({ searchParams }: Props) {
+  const grade = searchParams.grade || 'K2'
 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
   const [filteredNewsletters, setFilteredNewsletters] = useState<Newsletter[]>([])
