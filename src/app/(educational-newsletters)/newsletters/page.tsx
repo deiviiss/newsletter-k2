@@ -21,7 +21,7 @@ interface Props {
   }
 }
 
-export default async function NewsletterListPage({ searchParams }: Props) {
+export default function NewsletterListPage({ searchParams }: Props) {
   const grade = searchParams.grade || 'K2'
 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
