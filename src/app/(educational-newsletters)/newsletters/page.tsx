@@ -22,7 +22,7 @@ interface Props {
 }
 
 export default function NewsletterListPage({ searchParams }: Props) {
-  const grade = searchParams.grade || 'K2'
+  const grade = searchParams.grade || 'K3'
 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
   const [filteredNewsletters, setFilteredNewsletters] = useState<Newsletter[]>([])
