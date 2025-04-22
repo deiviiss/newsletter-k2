@@ -10,7 +10,7 @@ interface PaginationOptions {
   grade?: Grade
 }
 
-export const getNewsletters = async ({ page = 1, take = 6, grade }: PaginationOptions) => {
+export const getNewsletters = async ({ page = 1, take = 72, grade }: PaginationOptions) => {
   page = validatePageNumber(page)
 
   const newsletters = await prisma.newsletter.findMany({
