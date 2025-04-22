@@ -39,7 +39,12 @@ export const TopMenu = () => {
       <header className="container mx-auto lg:px-20 px-4 py-2 flex justify-between items-center">
         <Link href={'/'}>
           <div className="flex items-center space-x-2">
-            <Image src="/imgs/GK_foundation_logo-vertical.png" alt="Public Bilingual Kinder Garden" width={70} height={70} />
+            <Image
+              src="/imgs/GK_foundation_logo-vertical.webp"
+              alt="Public Bilingual Kinder Garden"
+              width={70}
+              height={70}
+            />
             <span className="text-xl sm:text-2xl font-bold">Public Bilingual Kinder Garden</span>
           </div>
         </Link>

@@ -17,12 +17,12 @@ interface Newsletter {
 
 interface Props {
   searchParams: {
-    grade?: Grade
+    grade: Grade
   }
 }
 
 export default function NewsletterListPage({ searchParams }: Props) {
-  const grade: Grade = searchParams.grade || 'K2'
+  const grade: Grade = searchParams.grade
 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
   const [filteredNewsletters, setFilteredNewsletters] = useState<Newsletter[]>([])
