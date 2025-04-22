@@ -1,12 +1,18 @@
 'use client'
 
+import { Grade as GradeType } from '@prisma/client'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect, type ChangeEvent } from 'react'
+import { toast } from 'sonner'
+import { z } from 'zod'
 import { getNewsletters } from '@/actions/newsletter/get-newsletters'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { type Grade } from '@/interfaces'
+
+const GradeSchema = z.nativeEnum(GradeType)
+type Grade = z.infer<typeof GradeSchema> // Grade === "K2" | "K3"
 
 interface Newsletter {
   id: string
@@ -15,14 +21,25 @@ interface Newsletter {
   grade: Grade
 }
 
-interface Props {
-  searchParams: {
-    grade?: Grade
-  }
-}
+export default function NewsletterListPage() {
+  const router = useRouter()
+  const params = useSearchParams()
+  const gradeParam = params.get('grade')
 
-export default function NewsletterListPage({ searchParams }: Props) {
-  const grade = searchParams.grade || 'K3'
+  const parsed = GradeSchema.safeParse(gradeParam)
+
+  useEffect(() => {
+    if (!parsed.success) {
+      toast.error('Invalid grade parameter.', {
+        duration: 3000,
+        description: 'Redirecting to K2 newsletters...',
+        position: 'top-right'
+      })
+      router.push('/newsletters?grade=K2')
+    }
+  }, [parsed.success, router])
+
+  const grade = parsed.success ? parsed.data : 'K2'
 
   const [newsletters, setNewsletters] = useState<Newsletter[]>([])
   const [filteredNewsletters, setFilteredNewsletters] = useState<Newsletter[]>([])
@@ -36,7 +53,7 @@ export default function NewsletterListPage({ searchParams }: Props) {
 
   useEffect(() => {
     fetchNewsletters()
-  }, [searchParams.grade])
+  }, [grade])
 
   const fetchNewsletters = async () => {
     setLoading(true)
