@@ -1,6 +1,8 @@
 import { getHolidays } from '@/actions'
 import { HolidayCalendar } from '@/components/holidays/HolidayCalendar'
 
+export const revalidate = 86400
+
 export default async function HolidaysPage() {
   const holidays = await getHolidays()
 

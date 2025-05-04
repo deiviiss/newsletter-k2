@@ -8,14 +8,6 @@ export const getHolidays = async (): Promise<Holiday[]> => {
   currentDate.setHours(0, 0, 0, 0)
 
   try {
-    // const holidays = await prisma.holiday.findMany({
-    //   orderBy: [
-    //     {
-    //       date: 'asc'
-    //     }
-    //   ]
-    // })
-
     const holidays = await prisma.$queryRaw<Holiday[]>`
       SELECT *
       FROM "holidays"
