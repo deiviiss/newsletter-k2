@@ -10,9 +10,9 @@ export const ButtonLogout = () => {
       variant='destructive'
       size='sm'
       className='w-full gap-2 mt-2'
-      onClick={() => {
-        logout()
-        window.location.replace('/auth/login')
+      onClick={async () => {
+        await logout()
+        window.location.replace('/')
       }}
     >
       <IoLogOut />
