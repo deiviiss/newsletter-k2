@@ -92,14 +92,14 @@ export const Sidebar = () => {
                   onClick={() => { closeMenu() }}
                   className='flex items-center mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoLogInOutline size={30} />
-                  <span className='ml-3 text-xl'>Login</span>
+                  <span className='ml-3 text-xl'>Sign in</span>
                 </Link>)
               : (
                 <button
-                  onClick={() => {
-                    logout()
+                  onClick={async () => {
+                    await logout()
                     closeMenu()
-                    window.location.replace('/auth/login')
+                    window.location.replace('/')
                   }}
                   className='flex items-center w-full mt-7 p-2 hover:bg-primary hover:text-secondary rounded-none transition-all'>
                   <IoLogOutOutline size={30} />

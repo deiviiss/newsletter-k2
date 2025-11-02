@@ -21,14 +21,14 @@ export const LoginForm = () => {
   return (
     <form action={dispatch} className="w-full flex flex-col max-w-[440px]">
 
-      <label htmlFor="email">Correo electrónico</label>
+      <label htmlFor="email">Email</label>
       <input
         className="px-5 py-2 border  rounded mb-5"
         type="email"
         name='email'
       />
 
-      <label htmlFor="password">Contraseña</label>
+      <label htmlFor="password">Password</label>
       <input
         className="px-5 py-2 border rounded mb-5"
         type="password"
@@ -43,7 +43,7 @@ export const LoginForm = () => {
           state === 'CredentialsInvalid' && (
             <div className='flex mb-2'>
               <IoInformationOutline className='h-5 w-5' />
-              <p className='text-sm'>Credenciales invalidas</p>
+              <p className='text-sm'>Invalid credentials</p>
             </div>
           )
         }
@@ -63,7 +63,7 @@ function LoginButton() {
       type='submit'
       disabled={pending}
     >
-      {pending ? 'Ingresando...' : 'Ingresar'}
+      {pending ? 'Signing in...' : 'Sign in'}
     </Button>
   )
 }
