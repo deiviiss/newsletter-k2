@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { LoginForm } from './ui/LoginForm'
-import { auth } from '@/auth.config'
+import { auth } from '@/auth'
 import { titleFont } from '@/config/fonts'
 
 export default async function LoginPage() {
